@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "cirta-login"
+    }
+  },
+  "defaultProject": "cirta-login",
+  "cli": {
+    "analytics": false
+  }
 }
