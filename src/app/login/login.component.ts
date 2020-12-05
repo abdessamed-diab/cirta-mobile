@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.pseudoName.disable({onlySelf: true, emitEvent: false});
     this.password.disable({onlySelf: true, emitEvent: false});
-    if (this.router.url.startsWith('/home')) {
-      this.router.navigateByUrl('/home');
-    }
+    // if (this.router.url.startsWith('/home')) {
+    //   this.router.navigateByUrl('/home');
+    // }
   }
 
   onFacebookSignIn(form: HTMLFormElement): void {
