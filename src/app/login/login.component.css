@@ -1,4 +1,4 @@
-.container.header {
+.container-fluid.footer {
   background-color: #0f6674;
   height: 5%;
   padding-top: 1px;
@@ -39,7 +39,7 @@ button , input{
 
 
 @media only screen and (max-height: 440px) {
-  .container.header {
+  .container-fluid.footer {
     background-color: #0f6674;
     height: 10%;
     padding-top: 1px;

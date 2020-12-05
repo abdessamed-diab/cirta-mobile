@@ -17,3 +17,115 @@ ul.navbar-nav {
   flex-direction: row;
   padding-right: 0px;
 }
+
+.flex-container {
+  display: flex;
+  width: 100%;
+  height: 40%;
+  box-sizing: border-box;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.flex-container > div {
+  minwidth: 25%;
+  width: 25%;
+  max-width: 25%;
+  height: 100%;
+  background-color: #4e555b;
+  margin: 8px 8px;
+  text-align: center;
+  box-shadow: inset 0 0 2px 4px lightgray;
+  border-radius: 8px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: lightgray;
+  box-shadow: inset 0 0 1px grey;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: dimgray;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkgray;
+}
+
+@media only screen and (max-width: 512px) {
+  .flex-container {
+    height: 45%;
+  }
+
+  .flex-container > div {
+    minwidth: 45%;
+    width: 45%;
+    max-width: 45%;
+    margin: 8px 2px;
+  }
+}
+
+@media only screen and (min-width: 512px) {
+  .flex-container {
+    height: 90%;
+  }
+
+  .flex-container > div {
+    minwidth: 33%;
+    width: 33%;
+    max-width: 30%;
+    margin: 1px 8px;
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  .flex-container {
+    height: 55%;
+  }
+
+  .flex-container > div {
+    minwidth: 33%;
+    width: 33%;
+    max-width: 30%;
+    margin: 8px 8px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .flex-container {
+    height: 75%;
+  }
+
+  .flex-container > div {
+    minwidth: 25%;
+    width: 25%;
+    max-width: 25%;
+    margin: 4px 8px;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .flex-container {
+    height: 80%;
+  }
+
+  .flex-container > div {
+    minwidth: 25%;
+    width: 25%;
+    max-width: 25%;
+    margin: 16px 16px;
+  }
+}
