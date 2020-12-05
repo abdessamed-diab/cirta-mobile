@@ -25,15 +25,16 @@ h3 {
 }
 
 .login-box {
-  background-color: lightslategray;
+  /*background-color: lightgray;*/
+  padding: 1%;
   width: 320px;
   height: 50%;
 }
 
-button {
+button , input{
   display: block;
-  margin-bottom: 4px;
-  margin-top: 4px;
+  margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 
@@ -53,5 +54,6 @@ button {
     height: 90%;
   }
 }
+
 
 

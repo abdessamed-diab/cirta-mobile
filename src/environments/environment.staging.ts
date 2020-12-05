@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const backendServer = {
-  dns: 'https://localhost/',
+  dns: 'https://192.168.99.100/',
   signInUrl: 'signin/facebook'
 };
 

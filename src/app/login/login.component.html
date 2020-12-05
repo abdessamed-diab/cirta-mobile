@@ -4,10 +4,17 @@
 
 <div class="flex-container">
   <div class="login-box">
-    <div class="container">
-      <button type="button" class="btn btn-primary btn-block">Facebook</button>
-      <button type="button" class="btn btn-primary btn-block">Twitter</button>
-      <button type="button" class="btn btn-primary btn-block">LinkedIn</button>
-    </div>
+
+    <form>
+      <input type="text"     class="form-control" [formControl]="pseudoName" placeholder="enter your pseudo name.">
+      <input type="password" class="form-control" [formControl]="password"   placeholder="your password please  !">
+    </form>
+
+    <br/>
+    <form #form action="{{loginService.backendServer.dns + loginService.backendServer.signInUrl}}"
+          method="POST" (ngSubmit)="onFacebookSignIn(form)">
+      <input  type="hidden" name="scope" value="public_profile"/>
+      <button type="submit" class="btn btn-primary btn-block">Facebook</button>
+    </form>
   </div>
 </div>
