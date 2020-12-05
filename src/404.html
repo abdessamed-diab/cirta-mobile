@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <base href="https://rahba.net/">  <title>ســاحــة الســــوق - Rahba</title>
+  <base href="/">
+  <title>ســاحــة الســــوق - Rahba</title>
   <meta name="description"    content="ســاحــة الســــوق تمكنـك مـن البحـت و مقارنـة المنتـجات المتداولة.
   يمكنـك مشـاركـة اهتمـامـاتك مع صـاحب العـرض عن طريـق اضـافت المحتـوى الي صفـحت الفايـسبـوك الخـاصـة بـك.">
   <meta name="viewport"       content="width=device-width, initial-scale=1">
@@ -26,22 +27,19 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
         crossorigin="anonymous">
-<link rel="stylesheet" href="styles.a696b72e0505ed7ff14c.css"></head>
-<body>
+
   <script>
-    (function () {
-      // Retrieve the URL the user was trying to access when receiving the 404.
-      let redirect = sessionStorage.redirect;
-      // Remove the URL from sessionStorage.
-      delete sessionStorage.redirect;
-      // Check if we actually need to redirect.
-      if (redirect && redirect != location.href) {
-        // We need to redirect to the URL the user was trying to access.
-        console.log('good.');
-        history.replaceState(null, null, '/home');
-      }
-    })();
+    // Store the URL the user was trying to access when receiving the 404.
+    sessionStorage.redirect = location.href;
   </script>
-  <app-root></app-root>
-<script src="runtime.ae3579f2521671f61d00.js" defer></script><script src="polyfills.a4021de53358bb0fec14.js" defer></script><script src="main.eb4d9afd34b9bbf113c2.js" defer></script></body>
+
+  <!-- Immediately redirect to the base URL so we can use the SPA routing. -->
+  <meta http-equiv="refresh" content="0;URL='/'">
+</head>
+<body>
+<address>
+  redirect url does not work<br>
+  please contact the owner: <a href="mailto:abdessamed.diab@gmail.com">DIAB Abdessamed</a>, for further information.<br>
+</address>
+</body>
 </html>
