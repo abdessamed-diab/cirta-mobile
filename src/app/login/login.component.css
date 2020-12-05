@@ -37,6 +37,10 @@ button , input{
   margin-top: 8px;
 }
 
+input {
+  text-align: right;
+}
+
 
 @media only screen and (max-height: 440px) {
   .container-fluid.footer {
