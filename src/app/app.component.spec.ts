@@ -24,6 +24,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('cirta-login app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('rahba-books app is running!');
   });
 });
