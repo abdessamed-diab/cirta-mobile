@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
+import {Book} from '../models/Book';
+import {HomeService} from '../home.service';
 
 @Component({
   selector: 'rahba-book-chart',
@@ -6,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./book-chart.component.css']
 })
 export class BookChartComponent implements OnInit {
-  bookTitle: string;
+  @Input()
+  book: Book;
   constructor() { }
 
   ngOnInit(): void {
-    this.bookTitle = 'اسم الكتاب هنا.';
   }
 
   onCLick(event): void {

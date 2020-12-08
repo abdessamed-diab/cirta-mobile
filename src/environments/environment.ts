@@ -8,7 +8,8 @@ export const environment = {
 
 export const backendServer = {
   dns: 'https://localhost/',
-  signInUrl: 'signin/facebook'
+  signInUrl: 'signin/facebook',
+  favoritesBooks: 'book/favorites'
 };
 
 /*

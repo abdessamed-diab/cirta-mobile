@@ -11,12 +11,7 @@
 
 <!--scrollable content-->
 <div class="flex-container">
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
-  <div><rahba-book-chart></rahba-book-chart></div>
+  <div *ngFor="let book of books">
+    <rahba-book-chart [book]="book"></rahba-book-chart>
+  </div>
 </div>
