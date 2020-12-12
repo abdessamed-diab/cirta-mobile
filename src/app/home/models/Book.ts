@@ -5,5 +5,5 @@ export interface Book {
   title: string;
   author: string;
   releaseDate: string;
-  coverPhotoBse64: string;
+  coverPhotoUrl: string;
 }

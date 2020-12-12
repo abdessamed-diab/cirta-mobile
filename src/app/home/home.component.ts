@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
       (error: ErrorEvent) => {
         console.log('error', error);
         localStorage.removeItem('jwt');
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/');
       }
     );
   }

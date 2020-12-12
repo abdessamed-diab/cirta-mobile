@@ -25,9 +25,8 @@ export class BookChartComponent implements OnInit {
 
   setBackgroundImageStyle(): void {
     this.backgroundImageStyle = {
-      'background-image': 'url(assets/img/' + this.book.id + '.jpg)'
+      'background-image': 'url(data:image/jpg;base64,' + this.book.coverPhotoUrl + ')'
     };
-    console.log('style: ', this.backgroundImageStyle);
   }
 
 }
