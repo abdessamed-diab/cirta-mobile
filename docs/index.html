@@ -28,20 +28,19 @@
         crossorigin="anonymous">
 <link rel="stylesheet" href="styles.a696b72e0505ed7ff14c.css"></head>
 <body>
-  <script>
-    (function () {
-      // Retrieve the URL the user was trying to access when receiving the 404.
-      let redirect = sessionStorage.redirect;
-      // Remove the URL from sessionStorage.
-      delete sessionStorage.redirect;
-      // Check if we actually need to redirect.
-      if (redirect && redirect != location.href) {
-        // We need to redirect to the URL the user was trying to access.
-        console.log('good.');
-        history.replaceState(null, null, '/home');
-      }
-    })();
-  </script>
+<script>
+  (function () {
+    // Retrieve the URL the user was trying to access when receiving the 404.
+    let redirect = sessionStorage.redirect;
+    // Remove the URL from sessionStorage.
+    // delete sessionStorage.redirect;
+    // Check if we actually need to redirect.
+    if (redirect && redirect != location.href) {
+      // We need to redirect to the URL the user was trying to access.
+      history.replaceState(null, null, '/'+redirect.slice(redirect.lastIndexOf('/')+1));
+    }
+  })();
+</script>
   <app-root></app-root>
-<script src="runtime.0880a3ff55ed71fbc48d.js" defer></script><script src="polyfills.a4021de53358bb0fec14.js" defer></script><script src="main.b8c4eaf1908c8a9e6a2c.js" defer></script></body>
+<script src="runtime.01d481f2d56f2f8c759d.js" defer></script><script src="polyfills.a4021de53358bb0fec14.js" defer></script><script src="main.9cc985b9f09c1e476b65.js" defer></script></body>
 </html>
