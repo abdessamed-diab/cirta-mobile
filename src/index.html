@@ -29,20 +29,19 @@
         crossorigin="anonymous">
 </head>
 <body>
-  <script>
-    (function () {
-      // Retrieve the URL the user was trying to access when receiving the 404.
-      let redirect = sessionStorage.redirect;
-      // Remove the URL from sessionStorage.
-      delete sessionStorage.redirect;
-      // Check if we actually need to redirect.
-      if (redirect && redirect != location.href) {
-        // We need to redirect to the URL the user was trying to access.
-        console.log('good.');
-        history.replaceState(null, null, '/home');
-      }
-    })();
-  </script>
+<script>
+  (function () {
+    // Retrieve the URL the user was trying to access when receiving the 404.
+    let redirect = sessionStorage.redirect;
+    // Remove the URL from sessionStorage.
+    // delete sessionStorage.redirect;
+    // Check if we actually need to redirect.
+    if (redirect && redirect != location.href) {
+      // We need to redirect to the URL the user was trying to access.
+      history.replaceState(null, null, '/'+redirect.slice(redirect.lastIndexOf('/')+1));
+    }
+  })();
+</script>
   <app-root></app-root>
 </body>
 </html>

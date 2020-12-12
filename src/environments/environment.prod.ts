@@ -4,5 +4,12 @@ export const environment = {
 
 export const backendServer = {
   dns: 'https://cirta.app/',
-  signInUrl: 'signin/facebook'
+  signInUrl: 'signin/facebook',
+  login: 'login',
+  favoritesBooks: 'book/favorites'
+};
+
+export const frontendServer = {
+  dns: 'https://rahba.net',
+  home: '/home'
 };

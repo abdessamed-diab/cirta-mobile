@@ -12,11 +12,12 @@ export class HomeService {
   }
 
   getFavoritesBookResponse(): Observable<HttpResponse<Book[]>> {
+    const jwt = localStorage.getItem('jwt');
     return this.httpClient.get<Book[]>(
       backendServer.dns + backendServer.favoritesBooks + '/1',
       {
         headers: {
-          Authorization: 'Basic 34i3j4iom2323==',
+          Authorization: `Bearer ${jwt}`,
           locale: navigator.language,
           Accept: 'application/json'
         },

@@ -3,6 +3,9 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  /*background-image: url("src/assets/img/1.jpg");*/
+  background-size: cover;
+  filter: brightness(0.75);
 }
 
 .book-chart-box > div {
@@ -11,40 +14,44 @@
   /*background-color: #0f6674; debug*/
 }
 
+.book-chart-box:hover {
+  filter: brightness(1);
+}
+
 .book-chart-box > .book-title {
-  direction: rtl;
   overflow: hidden;
   white-space: pre-line;
   text-overflow: ellipsis;
   text-align: right;
   color: whitesmoke;
-  font-size: small;
+  font-size: 0.5em;
   text-shadow: 0px 0px 4px #333333;
 }
 
 .book-round {
-  /*background-color: #0f6674; debug*/
-  margin: 8px 8px;
+  background-color: #80bdff44;
+  margin: 8px 4px;
   box-shadow: inset 0 0 2px 1px #333333;
   border: 1px solid #333333;
   text-align: center;
+  z-index: 100;
 }
 
 @media only screen and (max-width: 380px) {
   .book-round {
-    width: 92px;
-    height: 92px;
-    border-radius: 46px;
-    line-height: 92px;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    line-height: 48px;
   }
 }
 
 @media only screen and (min-width: 380px) {
   .book-round {
-    width: 144px;
-    height: 144px;
-    border-radius: 72px;
-    line-height: 144px;
+    width: 84px;
+    height: 84px;
+    border-radius: 42px;
+    line-height: 84px;
   }
 }
 

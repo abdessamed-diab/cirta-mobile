@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Book} from './models/Book';
 import {HomeService} from './home.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import {HomeService} from './home.service';
 })
 export class HomeComponent implements OnInit {
   books: Book[];
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadFavoriteBook();
@@ -19,7 +20,11 @@ export class HomeComponent implements OnInit {
   loadFavoriteBook(): void {
     this.homeService.getFavoritesBookResponse().subscribe(
       (book: HttpResponse<Book[]>) => this.books = book.body,
-      (error: ErrorEvent) => console.log('error', error)
+      (error: ErrorEvent) => {
+        console.log('error', error);
+        localStorage.removeItem('jwt');
+        this.router.navigateByUrl('');
+      }
     );
   }
 }

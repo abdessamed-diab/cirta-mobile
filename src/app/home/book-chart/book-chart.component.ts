@@ -11,13 +11,23 @@ import {HomeService} from '../home.service';
 export class BookChartComponent implements OnInit {
   @Input()
   book: Book;
+  backgroundImageStyle = {};
+
   constructor() { }
 
   ngOnInit(): void {
+    this.setBackgroundImageStyle();
   }
 
   onCLick(event): void {
     console.log('event', event);
+  }
+
+  setBackgroundImageStyle(): void {
+    this.backgroundImageStyle = {
+      'background-image': 'url(assets/img/' + this.book.id + '.jpg)'
+    };
+    console.log('style: ', this.backgroundImageStyle);
   }
 
 }

@@ -8,7 +8,7 @@
 
     <br/>
     <form #form action="{{loginService.backendServer.dns + loginService.backendServer.signInUrl}}"
-          method="POST" (ngSubmit)="onFacebookSignIn(form)">
+          method="POST" (ngSubmit)="onFacebookSignUp(form)">
       <input  type="hidden" name="scope" value="public_profile"/>
       <button type="submit" class="btn btn-primary btn-block">Facebook</button>
     </form>

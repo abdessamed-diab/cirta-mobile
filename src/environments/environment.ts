@@ -9,7 +9,13 @@ export const environment = {
 export const backendServer = {
   dns: 'https://localhost/',
   signInUrl: 'signin/facebook',
+  login: 'login',
   favoritesBooks: 'book/favorites'
+};
+
+export const frontendServer = {
+  dns: 'http://localhost:4200',
+  home: '/home'
 };
 
 /*

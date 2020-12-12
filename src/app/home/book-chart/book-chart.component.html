@@ -1,8 +1,11 @@
-<div class="book-chart-box" (click)="onCLick($event)" >
+<div class="book-chart-box" (click)="onCLick($event)" [ngStyle]="backgroundImageStyle">
   <div>
     <div class="book-round"></div>
   </div>
   <div></div>
   <div></div>
-  <div class="book-title">{{book.title}}</div>
+  <div class="book-title">
+    {{book.title}} <br />
+    {{book.releaseDate}}
+  </div>
 </div>
