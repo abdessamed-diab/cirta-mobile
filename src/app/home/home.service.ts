@@ -3,12 +3,13 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Book} from './models/Book';
 import {backendServer} from '../../environments/environment';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
   }
 
   getFavoritesBookResponse(): Observable<HttpResponse<Book[]>> {
@@ -25,5 +26,10 @@ export class HomeService {
         responseType: 'json'
       }
     );
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwt');
+    this.router.navigateByUrl('');
   }
 }

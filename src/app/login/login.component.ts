@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       )
     ).subscribe(
       (response: HttpResponse<AuthResponse>) => {
-        const jwt = response.body.token;
+        const jwt = response.body.jwtToken;
         if (jwt !== 'empty') {
           localStorage.setItem('jwt', jwt);
           this.router.navigateByUrl('/home');

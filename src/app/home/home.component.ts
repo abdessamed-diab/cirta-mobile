@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   books: Book[];
-  constructor(private homeService: HomeService, private router: Router) {}
+  constructor(public homeService: HomeService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadFavoriteBook();

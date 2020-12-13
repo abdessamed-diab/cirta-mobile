@@ -1,3 +1,4 @@
 export interface AuthResponse {
-  token: string;
+  jwtToken: string;
+  csrfToken: string;
 }
