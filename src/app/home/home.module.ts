@@ -2,15 +2,26 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {HomeRoutingModule} from './home-routing.module';
-import { BookChartComponent } from './book-chart/book-chart.component';
-
+import {BookChartComponent} from './home-page/book-chart/book-chart.component';
+import {BookModalComponent} from './home-page/book-chart/book-modal/book-modal.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import {FormsModule} from '@angular/forms';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [BookChartComponent],
+  declarations: [HomePageComponent, BookChartComponent, BookModalComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule
   ],
-  bootstrap: [BookChartComponent]
+  bootstrap: [HomePageComponent]
 })
 export class HomeModule { }
