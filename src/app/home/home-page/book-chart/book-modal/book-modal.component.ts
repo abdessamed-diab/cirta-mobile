@@ -22,6 +22,7 @@ export class BookModalComponent implements OnInit {
   viewerContainer: HTMLDivElement;
   nextPage = 1;
   canRefresh = false;
+  loaded = false;
   constructor(public dialogRef: MatDialogRef<BookModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private homeService: HomeService) { }
@@ -46,6 +47,7 @@ export class BookModalComponent implements OnInit {
           } else {
             console.log('reach end of file, no page left.');
           }
+          this.loaded = true;
         }
       },
       (error: HttpErrorResponse) => {
@@ -70,6 +72,7 @@ export class BookModalComponent implements OnInit {
 
   private onscroll(): void {
     if (this.viewerContainer.scrollTop + this.viewerContainer.clientHeight >= this.viewerContainer.scrollHeight && this.canRefresh) {
+      this.loaded = false;
       this.canRefresh = false;
       this.nextPage += this.data.cadence;
       this.updateArrayBuffer(this.nextPage);

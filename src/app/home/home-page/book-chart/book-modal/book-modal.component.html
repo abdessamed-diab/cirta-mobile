@@ -10,8 +10,10 @@
 <!--  <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Yes</button>-->
 <!--</div>-->
 
-
-<div class="book-content">
+<div *ngIf="!loaded" class="flex-container">
+  <div class="spinner-border text-primary"></div>
+</div>
+<div *ngIf="loaded" class="book-content">
   <pdf-viewer [src]="src"
               [original-size]="true"
               [fit-to-page]="true"

@@ -12,7 +12,10 @@
 <div style="display: flex; align-items: stretch">
   <div style="flex-grow: 1"></div>
 
-    <div style="flex-grow: 5">
+  <div *ngIf="!loaded" class="spinner-border"></div>
+
+  <div *ngIf="loaded" style="flex-grow: 5">
+
     <!--scrollable content-->
     <div class="flex-container">
       <div *ngFor="let book of books">
@@ -27,7 +30,8 @@
         </div>
       </div>
     </div>
-    </div>
+
+  </div>
 
   <div style="flex-grow: 1"></div>
 

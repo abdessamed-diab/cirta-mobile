@@ -22,6 +22,7 @@ export class BookChartComponent implements OnInit {
   books: Book[];
   email: string;
   selectedBook: Book;
+  loaded = false;
 
   constructor(public homeService: HomeService, private router: Router, public dialog: MatDialog) { }
 
@@ -31,7 +32,7 @@ export class BookChartComponent implements OnInit {
 
   loadFavoriteBook(): void {
     this.homeService.getFavoritesBookResponse().subscribe(
-      (book: HttpResponse<Book[]>) => this.books = book.body,
+      (book: HttpResponse<Book[]>) => {this.books = book.body; this.loaded = true; },
       (error: ErrorEvent) => {
         console.log('error', error);
         localStorage.removeItem('jwt');

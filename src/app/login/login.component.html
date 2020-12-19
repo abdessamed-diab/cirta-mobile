@@ -1,5 +1,6 @@
 <div class="flex-container">
-  <div class="login-box">
+  <div class="spinner-border" *ngIf="loading"></div>
+  <div class="login-box" *ngIf="!loading">
 
     <form>
       <div class="alert alert-danger alert-dismissible fade show" [hidden]="hiddenWarnMessage">
@@ -17,6 +18,7 @@
       <input  type="hidden" name="scope" value="public_profile"/>
       <button type="submit" class="btn btn-primary btn-block">Facebook</button>
     </form>
+
   </div>
 </div>
 

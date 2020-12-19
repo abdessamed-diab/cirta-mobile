@@ -5,7 +5,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {HttpResponse} from '@angular/common/http';
 import {AuthResponse} from './models/AuthResponse';
 import {switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   pseudoName = new FormControl('');
   password   = new FormControl('');
   hiddenWarnMessage = true;
+  loading = true;
 
   constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -34,29 +35,35 @@ export class LoginComponent implements OnInit {
       switchMap(
         (params: ParamMap) => {
           const tempRequestBody = {key: params.get('key'), username: undefined, password: undefined};
-          return params.has('key') ? this.loginService.logInUser(tempRequestBody) : new Observable();
+          return params.has('key') ? this.loginService.logInUser(tempRequestBody) :
+            of<HttpResponse<AuthResponse>>(new HttpResponse({status: 404}));
         }
       )
     ).subscribe(
       (response: HttpResponse<AuthResponse>) => {
-          this.storeJwtAndRedirect(response.body.jwtToken);
+          response.status !== 404 ? this.storeJwtAndRedirect(response.body.jwtToken) : this.loading = false;
         },
-      (error: ErrorEvent) => console.log('error', error)
+      (error: ErrorEvent) => { console.log('error', error); this.loading = false; },
+      () => this.loading = false
     );
 
   }
 
   onFacebookSignUp(form: HTMLFormElement): void {
+    this.pseudoName.setValue('');
+    this.password.setValue('');
     form.submit();
   }
 
   onEnter(): void {
+    this.loading = true;
     const tempRequestBody = {key: undefined, username: this.pseudoName.value, password: this.password.value};
     this.loginService.logInUser(tempRequestBody).subscribe(
       (response: HttpResponse<AuthResponse>) => {
         this.storeJwtAndRedirect(response.body.jwtToken);
       },
-        error => {console.log('error onEnter: ', error);  this.hiddenWarnMessage = false; }
+        error => {console.log('error onEnter: ', error);  this.hiddenWarnMessage = false; this.loading = false; },
+      () => this.loading = false
     );
   }
 
