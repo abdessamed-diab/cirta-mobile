@@ -12,10 +12,10 @@ export class LoginService {
     this.backendServer = backendServer;
   }
 
-  isLoggedIn(tempKey: TempRequestBody): Observable<HttpResponse<AuthResponse>> {
+  public logInUser(tempRequestBody: TempRequestBody): Observable<HttpResponse<AuthResponse>> {
     return this.httpClient.post<AuthResponse>(
       backendServer.dns + backendServer.login,
-      tempKey ,
+      tempRequestBody ,
       {
         headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
         observe: 'response',

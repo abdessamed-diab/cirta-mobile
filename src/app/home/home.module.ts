@@ -10,6 +10,7 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [HomePageComponent, BookChartComponent, BookModalComponent],
@@ -20,7 +21,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    PdfViewerModule
   ],
   bootstrap: [HomePageComponent]
 })

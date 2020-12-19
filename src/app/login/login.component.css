@@ -41,6 +41,23 @@ input {
   text-align: right;
 }
 
+.btn-success:hover {
+  background-color: #0f6674;
+}
+
+span {
+  padding-left: 48px;
+}
+
+button.close {
+  left: 0;
+  margin: 0px;
+}
+
+.alert.alert-dismissible {
+  padding-right: 8px;
+}
+
 
 @media only screen and (max-height: 440px) {
   .container-fluid.footer {

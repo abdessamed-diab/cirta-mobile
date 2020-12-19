@@ -1,14 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
 import {Book} from '../../models/Book';
 import {HomeService} from '../../home.service';
 import {Router} from '@angular/router';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {BookModalComponent} from './book-modal/book-modal.component';
 
 interface DialogData {
   email: string;
+  book: Book;
+  cadence: number;
 }
 
 @Component({
@@ -19,6 +21,7 @@ interface DialogData {
 export class BookChartComponent implements OnInit {
   books: Book[];
   email: string;
+  selectedBook: Book;
 
   constructor(public homeService: HomeService, private router: Router, public dialog: MatDialog) { }
 
@@ -43,8 +46,8 @@ export class BookChartComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(BookModalComponent, {
-      width: `${window.innerWidth / 2}px`, height: `${window.innerHeight / 2}px`,
-      data: {}
+      width: `${window.innerWidth / 1.1}px`, height: `${window.innerHeight / 1.1}px`,
+      data: {email: '', book: this.selectedBook, cadence: 5}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -52,8 +55,8 @@ export class BookChartComponent implements OnInit {
     });
   }
 
-  onCLick(event): void {
-    console.log('event', event);
+  onCLick(selectedBook: Book): void {
+    this.selectedBook = selectedBook;
     this.openDialog();
   }
 

@@ -15,6 +15,7 @@ import {Observable} from 'rxjs';
 export class LoginComponent implements OnInit {
   pseudoName = new FormControl('');
   password   = new FormControl('');
+  hiddenWarnMessage = true;
 
   constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -23,8 +24,8 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/home');
     } else {
       this.loginUser();
-      this.pseudoName.disable({onlySelf: true, emitEvent: false});
-      this.password.disable({onlySelf: true, emitEvent: false});
+      // this.pseudoName.disable({onlySelf: true, emitEvent: false});
+      // this.password.disable({onlySelf: true, emitEvent: false});
     }
   }
 
@@ -32,16 +33,13 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.paramMap.pipe(
       switchMap(
         (params: ParamMap) => {
-           return params.has('key') ? this.loginService.isLoggedIn({key: params.get('key')}) : new Observable();
+          const tempRequestBody = {key: params.get('key'), username: undefined, password: undefined};
+          return params.has('key') ? this.loginService.logInUser(tempRequestBody) : new Observable();
         }
       )
     ).subscribe(
       (response: HttpResponse<AuthResponse>) => {
-        const jwt = response.body.jwtToken;
-        if (jwt !== 'empty') {
-          localStorage.setItem('jwt', jwt);
-          this.router.navigateByUrl('/home');
-        }
+          this.storeJwtAndRedirect(response.body.jwtToken);
         },
       (error: ErrorEvent) => console.log('error', error)
     );
@@ -50,6 +48,27 @@ export class LoginComponent implements OnInit {
 
   onFacebookSignUp(form: HTMLFormElement): void {
     form.submit();
+  }
+
+  onEnter(): void {
+    const tempRequestBody = {key: undefined, username: this.pseudoName.value, password: this.password.value};
+    this.loginService.logInUser(tempRequestBody).subscribe(
+      (response: HttpResponse<AuthResponse>) => {
+        this.storeJwtAndRedirect(response.body.jwtToken);
+      },
+        error => {console.log('error onEnter: ', error);  this.hiddenWarnMessage = false; }
+    );
+  }
+
+  private storeJwtAndRedirect(jwt: string): void {
+    if (jwt !== 'empty') {
+      localStorage.setItem('jwt', jwt);
+      this.router.navigateByUrl('/home');
+    }
+  }
+
+  toggleHiddenWarnMessage(): void {
+    this.hiddenWarnMessage = !this.hiddenWarnMessage;
   }
 
 }
