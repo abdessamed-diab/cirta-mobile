@@ -66,13 +66,18 @@ export class BookChartComponent implements OnInit {
 
   loadBookmarks(): void {
     this.homeService.loadBookBookmarks(this.selectedBook.id, this.selectedBook.sourceUrl).subscribe(
-      (response: HttpResponse<Bookmarks>) => { this.bookmarks = response.body; this.openDialog(); },
+      (response: HttpResponse<Bookmarks>) => {
+        this.bookmarks = response.body;
+        this.loaded = true;
+        this.openDialog();
+        },
       error => console.log('error: ', error)
     );
   }
 
   onCLick(selectedBook: Book): void {
     this.selectedBook = selectedBook;
+    this.loaded = false;
     this.loadBookmarks();
   }
 
