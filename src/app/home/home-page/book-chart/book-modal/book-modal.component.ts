@@ -95,6 +95,7 @@ export class BookModalComponent implements OnInit {
   }
 
   goToPage(page: number): void {
+    this.loaded = false;
     this.canRefresh = false;
     this.nextPage = page + 1; // check why we should add this 1!
     this.updateArrayBuffer();

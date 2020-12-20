@@ -12,7 +12,7 @@
 <div *ngIf="!loaded" class="flex-container">
   <div class="spinner-border text-primary"></div>
 </div>
-<div *ngIf="loaded" class="flex-container-book-content">
+<div class="flex-container-book-content">
   <span class="badge badge-pill badge-light" (click)="toggleShowSummary()">toggle</span>
   <div *ngIf="showSummary" style="flex-grow: 2; margin-top: 32px">
     <ol *ngFor="let key of keys()">
@@ -22,7 +22,7 @@
       </li>
     </ol>
   </div>
-  <div style="flex-grow: 8">
+  <div *ngIf="loaded" style="flex-grow: 8">
     <pdf-viewer [src]="src"
                 [original-size]="true"
                 [fit-to-page]="true"

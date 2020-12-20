@@ -71,7 +71,7 @@ export class BookChartComponent implements OnInit {
         this.loaded = true;
         this.openDialog();
         },
-      error => console.log('error: ', error)
+      error => {console.log('error: ', error); this.homeService.logout(); }
     );
   }
 
