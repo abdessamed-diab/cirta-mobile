@@ -4,11 +4,13 @@ import {Book} from '../../../models/Book';
 import {HomeService} from '../../../home.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
+import {Bookmarks} from '../../../models/Bookmarks';
 
 interface DialogData {
   email: string;
   book: Book;
   cadence: number;
+  bookmarks: Bookmarks;
 }
 
 @Component({
@@ -23,18 +25,19 @@ export class BookModalComponent implements OnInit {
   nextPage = 1;
   canRefresh = false;
   loaded = false;
+  showSummary = false;
   constructor(public dialogRef: MatDialogRef<BookModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private homeService: HomeService) { }
 
   ngOnInit(): void {
     this.dialogRef.afterOpened().subscribe(
-      () => this.updateArrayBuffer(this.nextPage)
+      () => this.updateArrayBuffer()
     );
   }
 
-  updateArrayBuffer(nextPage: number): void{
-    this.homeService.streamPagesOfBook(this.data.book.id, this.data.book.sourceUrl, nextPage).subscribe(
+  updateArrayBuffer(): void{
+    this.homeService.streamPagesOfBook(this.data.book.id, this.data.book.sourceUrl, this.nextPage).subscribe(
       (responseOutputStream: HttpResponse<ArrayBuffer>) => {
         if (responseOutputStream.type === 4) {
           if (responseOutputStream.body.byteLength > 0) {
@@ -75,12 +78,26 @@ export class BookModalComponent implements OnInit {
       this.loaded = false;
       this.canRefresh = false;
       this.nextPage += this.data.cadence;
-      this.updateArrayBuffer(this.nextPage);
+      this.updateArrayBuffer();
     }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  toggleShowSummary(): void {
+    this.showSummary = !this.showSummary;
+  }
+
+  keys(): string[] {
+    return Object.keys(this.data.bookmarks);
+  }
+
+  goToPage(page: number): void {
+    this.canRefresh = false;
+    this.nextPage = page + 1; // check why we should add this 1!
+    this.updateArrayBuffer();
   }
 
 }

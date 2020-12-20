@@ -6,11 +6,13 @@ import {Router} from '@angular/router';
 
 import {MatDialog} from '@angular/material/dialog';
 import {BookModalComponent} from './book-modal/book-modal.component';
+import {Bookmarks} from '../../models/Bookmarks';
 
 interface DialogData {
   email: string;
   book: Book;
   cadence: number;
+  bookmarks: Bookmarks;
 }
 
 @Component({
@@ -22,6 +24,7 @@ export class BookChartComponent implements OnInit {
   books: Book[];
   email: string;
   selectedBook: Book;
+  bookmarks: Bookmarks;
   loaded = false;
 
   constructor(public homeService: HomeService, private router: Router, public dialog: MatDialog) { }
@@ -48,7 +51,12 @@ export class BookChartComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(BookModalComponent, {
       width: `${window.innerWidth / 1.1}px`, height: `${window.innerHeight / 1.1}px`,
-      data: {email: '', book: this.selectedBook, cadence: 5}
+      data: {
+        email: '',
+        book: this.selectedBook,
+        cadence: 5,
+        bookmarks: this.bookmarks,
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -56,9 +64,16 @@ export class BookChartComponent implements OnInit {
     });
   }
 
+  loadBookmarks(): void {
+    this.homeService.loadBookBookmarks(this.selectedBook.id, this.selectedBook.sourceUrl).subscribe(
+      (response: HttpResponse<Bookmarks>) => { this.bookmarks = response.body; this.openDialog(); },
+      error => console.log('error: ', error)
+    );
+  }
+
   onCLick(selectedBook: Book): void {
     this.selectedBook = selectedBook;
-    this.openDialog();
+    this.loadBookmarks();
   }
 
 }

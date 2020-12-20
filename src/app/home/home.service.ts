@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Book} from './models/Book';
 import {backendServer} from '../../environments/environment';
 import {Router} from '@angular/router';
+import {Bookmarks} from './models/Bookmarks';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,22 @@ export class HomeService {
         observe: 'events',
         responseType: 'arraybuffer',
         reportProgress: true
+      }
+    );
+  }
+
+  loadBookBookmarks(bookId: number, sourceUrl: string): Observable<HttpResponse<Bookmarks>> {
+    return this.httpClient.get<Bookmarks>(
+      backendServer.dns + `book/bookmark/${bookId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'source-url': sourceUrl
+        },
+        observe: 'response',
+        responseType: 'json'
       }
     );
   }
