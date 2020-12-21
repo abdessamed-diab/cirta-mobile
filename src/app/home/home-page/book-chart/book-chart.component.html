@@ -9,30 +9,34 @@
 </nav>
 
 
-<div style="display: flex; align-items: stretch">
-  <div style="flex-grow: 1"></div>
+<div style="display: inline-flex; width: 100%">
+  <div class="side-arrow" style="margin-left: 16px">
+    <div class="arrows-flex-container">
+      <div><i (click)="onLeftArrowClick($event)" class="fa fa-arrow-circle-right" aria-hidden="true" style="font-size: 3em; color: #343a40"></i></div>
+    </div>
+  </div>
 
   <div *ngIf="!loaded" class="spinner-border text-info" style="margin-top: 64px; width: 64px; height: 64px"></div>
 
-  <div *ngIf="loaded" style="flex-grow: 5">
-
-    <!--scrollable content-->
-    <div class="flex-container">
-      <div *ngFor="let book of books">
-        <div class="book-chart-box" (click)="onCLick(book)" [ngStyle]="base64ToImg(book.coverPhotoUrl)">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div class="book-title">
-            {{book.title}} <br/>
-            {{book.releaseDate}}
-          </div>
+  <!--scrollable content-->
+  <div class="flex-container" *ngIf="loaded">
+    <div *ngFor="let book of books">
+      <div class="book-chart-box" (click)="onCLick(book)" [ngStyle]="base64ToImg(book.coverPhotoUrl)">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="book-title">
+          {{book.title}} <br/>
+          {{book.releaseDate}}
         </div>
       </div>
     </div>
-
   </div>
 
-  <div style="flex-grow: 1"></div>
+  <div class="side-arrow" style="margin-right: 16px">
+    <div class="arrows-flex-container">
+      <div><i (click)="onRightArrowClick($event)" class="fa fa-arrow-circle-left" aria-hidden="true" style="font-size: 3em; color: #343a40"></i></div>
+    </div>
+  </div>
 
 </div>

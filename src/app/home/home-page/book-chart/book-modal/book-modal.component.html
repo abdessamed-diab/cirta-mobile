@@ -9,29 +9,31 @@
 <!--  <button mat-button (click)="onNoClick()">No</button>-->
 <!--  <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Yes</button>-->
 <!--</div>-->
+
+
+<span class="badge badge-pill badge-light" (click)="toggleShowSummary()">toggle</span>
+<div *ngIf="showSummary" class="summary-container">
+  <ol *ngFor="let key of keys()">
+    {{key}}
+    <li *ngFor="let bookmark of data.bookmarks[key]" (click)="goToPage(bookmark.page)" style="padding-left: 4px">
+      {{bookmark.title}}
+    </li>
+  </ol>
+</div>
+
 <div *ngIf="!loaded" class="flex-container">
   <div class="spinner-border text-primary"></div>
 </div>
-<div class="flex-container-book-content">
-  <span class="badge badge-pill badge-light" (click)="toggleShowSummary()">toggle</span>
-  <div *ngIf="showSummary" style="flex-grow: 2; margin-top: 32px">
-    <ol *ngFor="let key of keys()">
-      {{key}}
-      <li *ngFor="let bookmark of data.bookmarks[key]" (click)="goToPage(bookmark.page)" style="padding-left: 4px">
-        {{bookmark.title}}
-      </li>
-    </ol>
-  </div>
-  <div *ngIf="loaded" style="flex-grow: 8">
-    <pdf-viewer [src]="src"
-                [original-size]="true"
-                [fit-to-page]="true"
-                [show-all]="true"
-                [show-borders]="true"
-                (pageChange)="onPageChange($event)"
-                (after-load-complete)="callBackAfterLoadComplete($event)"
-                [stick-to-page]="false"
-    >
-    </pdf-viewer>
-  </div>
+
+<div *ngIf="loaded" class="book-content" [style.opacity]="showSummary ? '0.66' : '1'">
+  <pdf-viewer [src]="src"
+              [original-size]="true"
+              [fit-to-page]="true"
+              [show-all]="true"
+              [show-borders]="true"
+              (pageChange)="onPageChange($event)"
+              (after-load-complete)="callBackAfterLoadComplete($event)"
+              [stick-to-page]="false"
+  >
+  </pdf-viewer>
 </div>

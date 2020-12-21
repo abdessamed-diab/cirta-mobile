@@ -81,4 +81,14 @@ export class BookChartComponent implements OnInit {
     this.loadBookmarks();
   }
 
+  onLeftArrowClick(event): void {
+    const element = document.getElementsByClassName('flex-container')[0];
+    element.scrollLeft = element.scrollLeft + 50;
+  }
+
+  onRightArrowClick(event): void {
+    const element = document.getElementsByClassName('flex-container')[0];
+    element.scrollLeft = element.scrollLeft - 50;
+  }
+
 }

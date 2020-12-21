@@ -20,13 +20,15 @@ ul.navbar-nav {
 
 .flex-container {
   display: flex;
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
   flex-direction: column-reverse;
   flex-wrap: wrap;
   align-items: center;
+  /*align-content: center;*/
   overflow-x: auto;
   overflow-y: hidden;
+  margin: auto;
 }
 
 .flex-container > div {
@@ -137,6 +139,24 @@ ul.navbar-nav {
   }
 }
 
+.side-arrow {
+  width: 5%;
+  height: inherit;
+  z-index: 10;
+  position: relative;
+}
+
+.arrows-flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.arrows-flex-container > div {
+  opacity: 0.75;
+}
 /******************************** **************************  ****************************  ***************/
 
 
