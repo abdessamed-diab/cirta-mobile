@@ -29,6 +29,7 @@ ul.navbar-nav {
   overflow-x: auto;
   overflow-y: hidden;
   margin: auto;
+  z-index: 1;
 }
 
 .flex-container > div {
@@ -68,6 +69,18 @@ ul.navbar-nav {
 
 @media only screen and (max-width: 380px) {
   .flex-container {
+    height: 192px;
+  }
+
+  .flex-container > div {
+    minwidth: 96px;
+    width: 96px;
+    max-width: 96px;
+  }
+}
+
+@media only screen and (min-width: 380px) {
+  .flex-container{
     height: 256px;
   }
 
@@ -75,18 +88,6 @@ ul.navbar-nav {
     minwidth: 128px;
     width: 128px;
     max-width: 128px;
-  }
-}
-
-@media only screen and (min-width: 380px) {
-  .flex-container{
-    height: 384px;
-  }
-
-  .flex-container > div {
-    minwidth: 192px;
-    width: 192px;
-    max-width: 192px;
   }
 }
 
@@ -117,32 +118,32 @@ ul.navbar-nav {
 
 @media only screen and (min-width: 992px) {
   .flex-container{
-    height: 600px;
+    height: 256px;
   }
 
   .flex-container > div {
-    minwidth: 300px;
-    width: 300px;
-    max-width: 300px;
+    minwidth: 128px;
+    width: 128px;
+    max-width: 128px;
   }
 }
 
 @media only screen and (min-width: 1366px) {
   .flex-container{
-    height: 640px;
+    height: 384px;
   }
 
   .flex-container > div {
-    minwidth: 320px;
-    width: 320px;
-    max-width: 320px;
+    minwidth: 192px;
+    width: 192px;
+    max-width: 192px;
   }
 }
 
 .side-arrow {
   width: 5%;
   height: inherit;
-  z-index: 10;
+  z-index: 0;
   position: relative;
 }
 
