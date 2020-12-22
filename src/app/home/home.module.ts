@@ -11,9 +11,10 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
-  declarations: [HomePageComponent, BookChartComponent, BookModalComponent],
+  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
