@@ -5,6 +5,7 @@ import {Book} from './models/Book';
 import {backendServer} from '../../environments/environment';
 import {Router} from '@angular/router';
 import {Bookmarks} from './models/Bookmarks';
+import {BookItem} from './models/BookItem';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +71,22 @@ export class HomeService {
           Accept: 'application/json',
           'Content-Type': 'application/json',
           'source-url': sourceUrl
+        },
+        observe: 'response',
+        responseType: 'json'
+      }
+    );
+  }
+
+  autoCompleteKeyword(keyword: string): Observable<HttpResponse<BookItem[]>> {
+    return this.httpClient.get<BookItem[]>(
+      backendServer.dns + `search/${keyword.toLowerCase()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          content: 'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'text/plain'
         },
         observe: 'response',
         responseType: 'json'
