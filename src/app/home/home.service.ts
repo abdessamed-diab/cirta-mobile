@@ -5,7 +5,7 @@ import {Book} from './models/Book';
 import {backendServer} from '../../environments/environment';
 import {Router} from '@angular/router';
 import {Bookmarks} from './models/Bookmarks';
-import {BookItem} from './models/BookItem';
+import {SearchableSummaryItem} from './models/SearchableSummaryItem';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +78,8 @@ export class HomeService {
     );
   }
 
-  autoCompleteKeyword(keyword: string): Observable<HttpResponse<BookItem[]>> {
-    return this.httpClient.get<BookItem[]>(
+  autoCompleteKeyword(keyword: string): Observable<HttpResponse<SearchableSummaryItem[]>> {
+    return this.httpClient.get<SearchableSummaryItem[]>(
       backendServer.dns + `search/${keyword.toLowerCase()}`,
       {
         headers: {

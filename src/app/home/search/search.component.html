@@ -25,15 +25,15 @@
     />
   </div>
   <div class="autocomplete-items">
-    <div *ngFor="let bookItem of items; let co = index" id="{{bookItem.bookId}}" (click)="onSelectedBookItem(bookItem.bookId)">
+    <div *ngFor="let bookItem of items; let co = index" id="{{bookItem.bookId}}" (click)="onSelectedBookItem(bookItem.parentTitle)">
       <i class="fas fa-search"></i>
       <div style="max-width: 100%; max-height: 100%; white-space: pre-wrap; overflow-wrap: break-word">
-        <label style="font-size: small; direction: rtl" tabindex="{{co+5}}">{{'الصفحة ' + bookItem.startPage + ' العنوان ' + bookItem.bookmarkTitle}}</label>
+        <span tabindex="{{co+5}}">{{'الصفحة ' + bookItem.page + ' العنوان ' + bookItem.title}}</span>
       </div>
 
     </div>
-    <div *ngIf="items.length === 5">
-      <a href="#" style="direction: rtl; text-align: right"> {{searchInput.value}}رؤية المزيد من النتائج عن:</a>
+    <div *ngIf="items.length === maxResultSet">
+      <a href="#" style="direction: rtl; text-align: right"> رؤية المزيد من النتائج عن: {{searchInput.value}} </a>
     </div>
   </div>
 
