@@ -24,16 +24,22 @@
       autofocus
     />
   </div>
-  <div class="autocomplete-items">
-    <div *ngFor="let bookItem of items; let co = index" id="{{bookItem.bookId}}" (click)="onSelectedBookItem(bookItem.parentTitle)">
+  <div #autoComplete class="autocomplete-items">
+    <div *ngFor="let summaryItem of items; let co = index"
+         id="{{summaryItem.id}}"
+         (click)="onSelectedBookItem(summaryItem)"
+         (keyup.enter)="onSelectedBookItem(summaryItem)">
+
       <i class="fas fa-search"></i>
-      <div style="max-width: 100%; max-height: 100%; white-space: pre-wrap; overflow-wrap: break-word">
-        <span tabindex="{{co+5}}">{{'الصفحة ' + bookItem.page + ' العنوان ' + bookItem.title}}</span>
-      </div>
+      <span tabindex="{{co+5}}"
+            (keyup.arrowDown)="onSummaryItemKeyPress(autoComplete, true)"
+            (keyup.arrowUp)="onSummaryItemKeyPress(autoComplete, false)"
+            [innerHTML]="summaryItem.title | summaryItemTitle: searchInput.value">
+      </span>
 
     </div>
     <div *ngIf="items.length === maxResultSet">
-      <a href="#" style="direction: rtl; text-align: right"> رؤية المزيد من النتائج عن: {{searchInput.value}} </a>
+      <a href="#">  رؤية المزيد من النتائج عن:   <strong> {{searchInput.value}} </strong></a>
     </div>
   </div>
 

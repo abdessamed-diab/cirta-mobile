@@ -11,7 +11,7 @@
 <!--</div>-->
 
 
-<span class="badge badge-pill badge-light" (click)="toggleShowSummary()">toggle</span>
+<span *ngIf="data.startPage === 0" class="badge badge-pill badge-light" (click)="toggleShowSummary()">toggle</span>
 <div *ngIf="showSummary" class="summary-container">
   <ol *ngFor="let key of keys()">
     {{key}}

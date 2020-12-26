@@ -1,4 +1,5 @@
 export interface SearchableSummaryItem {
+  id: number;
   title: string;
   page: number;
   parentId: number;

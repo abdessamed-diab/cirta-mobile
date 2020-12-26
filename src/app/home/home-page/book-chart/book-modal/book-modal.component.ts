@@ -7,10 +7,10 @@ import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 import {Bookmarks} from '../../../models/Bookmarks';
 
 interface DialogData {
-  email: string;
   book: Book;
   cadence: number;
   bookmarks: Bookmarks;
+  startPage: number;
 }
 
 @Component({
@@ -31,6 +31,7 @@ export class BookModalComponent implements OnInit {
               private homeService: HomeService) { }
 
   ngOnInit(): void {
+    this.nextPage = this.data.startPage > 0 ? this.data.startPage : this.nextPage;
     this.dialogRef.afterOpened().subscribe(
       () => this.updateArrayBuffer()
     );

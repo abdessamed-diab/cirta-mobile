@@ -3,6 +3,17 @@ import {FormControl} from '@angular/forms';
 import {HomeService} from '../home.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {SearchableSummaryItem} from '../models/SearchableSummaryItem';
+import {Book} from '../models/Book';
+import {Bookmarks} from '../models/Bookmarks';
+import {MatDialog} from '@angular/material/dialog';
+import {BookModalComponent} from '../home-page/book-chart/book-modal/book-modal.component';
+
+interface DialogData {
+  book: Book;
+  cadence: number;
+  bookmarks: Bookmarks;
+  startPage: number;
+}
 
 @Component({
   selector: 'rahba-search',
@@ -16,14 +27,27 @@ export class SearchComponent implements OnInit {
   searchInput = new FormControl('');
   private tab: string[] = ['ArrowRight', 'ArrowLeft', 'Enter', 'ArrowDown', 'ArrowUp'];
   maxResultSet =  10;
+  selectedSummaryItemNumber = 0;
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  onSelectedBookItem(bookItemId: number): void {
-    console.log('selected book item id: ', bookItemId);
+  onSelectedBookItem(searchableSummaryItem: SearchableSummaryItem): void {
+    const dialogRef = this.dialog.open(BookModalComponent, {
+      width: `${window.innerWidth / 1.1}px`, height: `${window.innerHeight / 1.1}px`,
+      data: {
+        email: '',
+        book: {
+          id: searchableSummaryItem.bookId,
+          sourceUrl: searchableSummaryItem.bookSourceUrl
+        },
+        cadence: 5,
+        bookmarks: {bookmark: {}},
+        startPage: searchableSummaryItem.page + 1
+      }
+    });
   }
 
   onSearchInputKeyUp(event: KeyboardEvent): void{
@@ -42,9 +66,26 @@ export class SearchComponent implements OnInit {
 
     }
 
+    if (event.code === 'ArrowDown' ) {
+      const autocompleteDivElement: Element = document.getElementsByClassName('autocomplete-items')[0];
+      autocompleteDivElement.getElementsByTagName('span')[this.selectedSummaryItemNumber].focus();
+    }
+
     if (this.searchInput.value.length <= 2) {
       this.items = [];
     }
+  }
+
+  onSummaryItemKeyPress(autoComplete: HTMLDivElement, dawn: boolean): void {
+    this.selectedSummaryItemNumber = dawn ? this.selectedSummaryItemNumber + 1 : this.selectedSummaryItemNumber - 1;
+    if (this.selectedSummaryItemNumber < 0) {
+      this.selectedSummaryItemNumber = 0;
+    }
+
+    if (this.selectedSummaryItemNumber >= this.items.length - 1 ) {
+      this.selectedSummaryItemNumber = this.items.length - 1 ;
+    }
+    autoComplete.getElementsByTagName('span')[this.selectedSummaryItemNumber].focus();
   }
 
   onResetSearchInput(event: KeyboardEvent): void {

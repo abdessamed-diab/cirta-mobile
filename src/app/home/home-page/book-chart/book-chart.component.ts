@@ -9,10 +9,10 @@ import {BookModalComponent} from './book-modal/book-modal.component';
 import {Bookmarks} from '../../models/Bookmarks';
 
 interface DialogData {
-  email: string;
   book: Book;
   cadence: number;
   bookmarks: Bookmarks;
+  startPage: number;
 }
 
 @Component({
@@ -52,10 +52,10 @@ export class BookChartComponent implements OnInit {
     const dialogRef = this.dialog.open(BookModalComponent, {
       width: `${window.innerWidth / 1.1}px`, height: `${window.innerHeight / 1.1}px`,
       data: {
-        email: '',
         book: this.selectedBook,
         cadence: 5,
         bookmarks: this.bookmarks,
+        startPage: 0
       }
     });
 

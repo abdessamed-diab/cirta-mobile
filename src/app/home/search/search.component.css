@@ -92,13 +92,14 @@
 
 .autocomplete-items > div:nth-child(11) {
   padding: 0px 16px;
-  font-size: larger;
+  font-size: x-large;
   height: 48px;
   line-height: 42px;
 }
 
 .autocomplete-items > div:nth-child(11) > a {
   color: #0f6674;
+  white-space: pre-wrap;
 }
 
 .autocomplete-items > div:nth-child(11):hover {
@@ -112,20 +113,16 @@
   line-height: 32px;
 }
 
-.autocomplete-items label {
-  line-height: 32px;
-}
-
 span {
   display: inline-block;
-  font-size: small;
-  direction: rtl;
   white-space: pre;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  line-height: 32px;
 }
 
 span:focus {
+  background-color: floralwhite;
   outline: none;
 }

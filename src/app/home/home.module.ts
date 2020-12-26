@@ -12,9 +12,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {SearchComponent} from './search/search.component';
+import { SummaryItemTitlePipe } from './search/summary-item-title/summary-item-title.pipe';
 
 @NgModule({
-  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent],
+  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent, SummaryItemTitlePipe],
   imports: [
     CommonModule,
     HomeRoutingModule,
