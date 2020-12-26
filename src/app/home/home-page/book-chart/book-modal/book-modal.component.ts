@@ -75,7 +75,9 @@ export class BookModalComponent implements OnInit {
   }
 
   private onscroll(): void {
-    if (this.viewerContainer.scrollTop + this.viewerContainer.clientHeight >= this.viewerContainer.scrollHeight && this.canRefresh) {
+    const scrollingAmount = parseInt(this.viewerContainer.scrollHeight - this.viewerContainer.scrollTop + '');
+    const topPosition = parseInt(this.viewerContainer.clientHeight + '');
+    if ( scrollingAmount <= topPosition) {
       this.loaded = false;
       this.canRefresh = false;
       this.nextPage += this.data.cadence;
