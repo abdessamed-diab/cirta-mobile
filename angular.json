@@ -75,6 +75,9 @@
           "configurations": {
             "production": {
               "browserTarget": "rahba-books:build:production"
+            },
+            "staging": {
+              "browserTarget": "rahba-books:build:staging"
             }
           }
         },
