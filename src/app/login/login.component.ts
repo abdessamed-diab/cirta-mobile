@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from './login.service';
 import {FormControl} from '@angular/forms';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpResponse} from '@angular/common/http';
 import {AuthResponse} from './models/AuthResponse';
-import {switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {VALUES_AR, VALUES_EN} from '../translation/en';
 
@@ -43,24 +42,16 @@ export class LoginComponent implements OnInit {
   }
 
   private get params(): Observable<HttpResponse<AuthResponse>> {
-    return this.activatedRoute.paramMap.pipe(
-      switchMap(
-        (params: ParamMap) => {
-          const tempRequestBody = {key: params.get('key'), username: undefined, password: undefined};
+    const paramMap = this.activatedRoute.snapshot.paramMap;
+    if (paramMap.has('key')) {
+      const tempRequestBody = {key: paramMap.get('key'), username: undefined, password: undefined};
+      return this.loginService.logInUser(tempRequestBody);
+    }
 
-          if (params.has('key')) {
-            console.log('key should be null! ', params.get('key'));
-            return this.loginService.logInUser(tempRequestBody);
-          }
-
-          if (params.has('language')) {
-            this.language = params.get('language') === 'ar' ? 0 : 1;
-          }
-
-          return of<HttpResponse<AuthResponse>>(new HttpResponse({status: 404}));
-        }
-      )
-    );
+    if (paramMap.has('language')) {
+      this.language = paramMap.get('language') === 'ar' ? 0 : 1;
+    }
+    return of<HttpResponse<AuthResponse>>(new HttpResponse({status: 404}));
   }
 
   onFacebookSignUp(form: HTMLFormElement): void {

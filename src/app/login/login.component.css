@@ -3,6 +3,7 @@
   height: 5%;
   max-height: 5%;
   overflow-y: hidden;
+  text-align: center;
 }
 
 .container-fluid.footer > a {
@@ -27,13 +28,14 @@
   display: block;
 }
 
-.container-fluid.header > select {
+select {
   position: absolute;
-  top: 0;
+  top: 10%;
   border: none;
   max-height: 16px;
   font-size: x-small;
-  opacity: 0.7;
+  background-color: #41505d;
+  color: white;
 }
 
 .select-to-left {
@@ -103,7 +105,9 @@ form > input {
 }
 
 .span_0 {
-  padding-left: 48px;
+  display: inline-block;
+  text-align: right;
+  width: 97%;
 }
 
 .span_0_header {
