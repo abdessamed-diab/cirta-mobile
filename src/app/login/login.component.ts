@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
           const tempRequestBody = {key: params.get('key'), username: undefined, password: undefined};
 
           if (params.has('key')) {
+            console.log('key should be null! ', params.get('key'));
             return this.loginService.logInUser(tempRequestBody);
           }
 
