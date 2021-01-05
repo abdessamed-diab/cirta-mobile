@@ -6,6 +6,7 @@ import {AuthGuard} from './login/auth.guard';
 const routes: Routes = [
     {path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
     {path: ':key', component: LoginComponent},
+    {path: 'lang/:language', component: LoginComponent, pathMatch: 'full'},
     {path: '**',   component: LoginComponent}
   ];
 

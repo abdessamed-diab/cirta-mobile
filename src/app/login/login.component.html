@@ -1,27 +1,85 @@
+<div class="container-fluid header">
+  <span [ngClass]="language === 0 ? 'span_0_header' : '' ">
+    <i class="fas fa-info-circle" style="color: white; line-height: 32px; margin: 0px 8px" [class.float-right]="language===0"></i>
+    <p>{{values.login_news_feed_paragraph}}</p>
+  </span>
+  <select name="language" id="language-select"
+          (change)="onSelectChange($event.target.value)"
+          [class.select-to-left]="language === 0"
+          [class.select-to-right]="language === 1"
+  >
+    <option value="en" [selected]="language === 1">english</option>
+    <option value="ar" [selected]="language === 0">عربي</option>
+  </select>
+</div>
+
 <div class="flex-container">
-  <div class="spinner-border" *ngIf="loading"></div>
-  <div class="login-box" *ngIf="!loading">
+  <div *ngIf="loading" class="spinner-border"></div>
+  <div *ngIf="!loading" class="login-box">
 
     <form>
       <div class="alert alert-danger alert-dismissible fade show" [hidden]="hiddenWarnMessage">
-        <button type="button" class="close" data-dismiss="alert" (click)="toggleHiddenWarnMessage()">&times;</button>
-        <span>  <strong>تنبيه !</strong> يرجى اعادة ادخال البيانات </span>
+        <button type="button"
+                class="close"
+                data-dismiss="alert"
+                (click)="toggleHiddenWarnMessage()"
+                [ngClass]="language === 0 ? 'close-to-left' : '' "
+        >
+          &times;
+        </button>
+        <span [ngClass]="language === 0 ? 'span_0' : '' ">
+          <strong>{{values.login_warn_strong}}</strong>{{values.login_warn_message}}
+        </span>
       </div>
-      <input type="text"     class="form-control" [formControl]="pseudoName" placeholder="اســم المستـعمـل" >
-      <input type="password" class="form-control" [formControl]="password"   placeholder="كلمــة المــرور" >
-      <button type="button"  class="btn btn-success btn-block" (click)="onEnter()">دخول</button>
+
+      <input type="text"
+             class="form-control"
+             [formControl]="pseudoName"
+             placeholder="{{values.login_pseudonym_placeholder}}"
+             title="{{values.login_pseudonym_title}}"
+             [ngClass]="language === 0 ? 'input_0' : '' "
+      >
+      <input type="password"
+             class="form-control"
+             [formControl]="password"
+             placeholder="{{values.login_password_placeholder}}"
+             title="{{values.login_password_title}}"
+             [ngClass]="language === 0 ? 'input_0' : '' "
+      >
+      <button type="button"
+              class="btn btn-success btn-block"
+              (click)="onEnter()"
+              title="{{values.login_enter_title}}"
+              style="margin-top: 16px"
+      >
+        <span style="margin-right: 24px"><i class="fas fa-handshake"></i></span>
+        {{values.login_enter}}
+      </button>
     </form>
 
-    <br/>
+    <div class="row" style="max-width: 100%; margin: 0px">
+      <div class="col-5"><hr></div>
+      <div class="col-2">{{values.login_or_separator}}</div>
+      <div class="col-5"><hr></div>
+    </div>
+
     <form #form action="{{loginService.backendServer.dns + loginService.backendServer.signInUrl}}"
           method="POST" (ngSubmit)="onFacebookSignUp(form)">
       <input  type="hidden" name="scope" value="public_profile"/>
-      <button type="submit" class="btn btn-primary btn-block">Facebook</button>
+      <button type="submit" class="btn btn-primary btn-block" title="{{values.login_button_facebook_title}}">
+        <span>
+          <span><i class="fab fa-facebook" style="color: white"></i></span>
+        </span>
+        facebook
+      </button>
     </form>
 
   </div>
 </div>
 
 <div class="container-fluid footer">
-  <h3>Rahba</h3>
+  <a href="https://rahba.net/" ><strong>Rahba </strong> <i class="fab fa-internet-explorer"></i> </a>
+  <a href="https://cirta.app/" >About</a>
+  <a href="https://cirta.app/terms_conditions">T&C <i class="fab fa-teamspeak"></i> </a>
+  <a href="https://cirta.app/privacy_policy">Privacy <i class="fas fa-user-secret"></i></a>
 </div>

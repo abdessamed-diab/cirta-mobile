@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from './login.service';
 import {FormControl} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
@@ -6,6 +6,7 @@ import {HttpResponse} from '@angular/common/http';
 import {AuthResponse} from './models/AuthResponse';
 import {switchMap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
+import {VALUES_AR, VALUES_EN} from '../translation/en';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   password   = new FormControl('');
   hiddenWarnMessage = true;
   loading = true;
+  language = 1;
 
   constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -31,25 +33,37 @@ export class LoginComponent implements OnInit {
   }
 
   private loginUser(): void{
-    this.activatedRoute.paramMap.pipe(
-      switchMap(
-        (params: ParamMap) => {
-          const tempRequestBody = {key: params.get('key'), username: undefined, password: undefined};
-          return params.has('key') ? this.loginService.logInUser(tempRequestBody) :
-            of<HttpResponse<AuthResponse>>(new HttpResponse({status: 404}));
-        }
-      )
-    ).subscribe(
+    this.params.subscribe(
       (response: HttpResponse<AuthResponse>) => {
           response.status !== 404 ? this.storeJwtAndRedirect(response.body.jwtToken) : this.loading = false;
         },
       (error: ErrorEvent) => { console.log('error', error); this.loading = false; },
       () => this.loading = false
     );
+  }
 
+  private get params(): Observable<HttpResponse<AuthResponse>> {
+    return this.activatedRoute.paramMap.pipe(
+      switchMap(
+        (params: ParamMap) => {
+          const tempRequestBody = {key: params.get('key'), username: undefined, password: undefined};
+
+          if (params.has('key')) {
+            return this.loginService.logInUser(tempRequestBody);
+          }
+
+          if (params.has('language')) {
+            this.language = params.get('language') === 'ar' ? 0 : 1;
+          }
+
+          return of<HttpResponse<AuthResponse>>(new HttpResponse({status: 404}));
+        }
+      )
+    );
   }
 
   onFacebookSignUp(form: HTMLFormElement): void {
+    this.loading = true;
     this.pseudoName.setValue('');
     this.password.setValue('');
     form.submit();
@@ -76,6 +90,14 @@ export class LoginComponent implements OnInit {
 
   toggleHiddenWarnMessage(): void {
     this.hiddenWarnMessage = !this.hiddenWarnMessage;
+  }
+
+  public get values(): any {
+    return this.language === 1 ? VALUES_EN : VALUES_AR;
+  }
+
+  onSelectChange(targetValue: string): void {
+    this.language = targetValue === 'en' ? 1 : 0;
   }
 
 }
