@@ -45,7 +45,7 @@ export class HomeService {
     );
   }
 
-  streamPagesOfBook(bookId: number, sourceUrl: string, startPage: number): Observable<HttpEvent<ArrayBuffer>> {
+  streamPagesOfBook(bookId: number, sourceUrl: string, startPage: number): Observable<ArrayBuffer> {
     return this.httpClient.get(
       backendServer.dns + `book/stream/${bookId}/${startPage}`,
       {
@@ -55,7 +55,7 @@ export class HomeService {
           'Content-Type': 'application/json',
           'source-url': sourceUrl
         },
-        observe: 'events',
+        observe: 'body',
         responseType: 'arraybuffer',
         reportProgress: true
       }

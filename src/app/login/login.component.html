@@ -1,7 +1,7 @@
 <div class="container-fluid header">
   <span [ngClass]="language === 0 ? 'span_0_header' : '' ">
-    <i class="fas fa-info-circle" style="color: white; line-height: 32px; margin: 0px 8px" [class.float-right]="language===0"></i>
-    <p>{{values.login_news_feed_paragraph}}</p>
+    <i class="fas fa-info-circle" [class.float-right]="language===0"></i>
+    {{values.login_news_feed_paragraph}}
   </span>
 </div>
 
@@ -84,4 +84,5 @@
   <a href="https://cirta.app/" >About</a>
   <a href="https://cirta.app/terms_conditions">T&C <i class="fab fa-teamspeak"></i> </a>
   <a href="https://cirta.app/privacy_policy">Privacy <i class="fas fa-user-secret"></i></a>
+  <a href="">Amazon <i class="fab fa-aws"></i></a>
 </div>

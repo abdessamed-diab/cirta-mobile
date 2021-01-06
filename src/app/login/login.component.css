@@ -14,26 +14,27 @@
 }
 
 .container-fluid.header {
-  position: absolute;
+  position: fixed;
   top: 0;
+  height: 10%;
   z-index: 50;
   background-color: #41505d;
-  height: 10%;
-  padding: 8px 4px;
   overflow-y: hidden;
 }
 
 .container-fluid.header > span {
-  line-height: 1%;
-  display: block;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  font-size: small;
+  width: 100%;
 }
 
 select {
   position: absolute;
   top: 10%;
   border: none;
-  max-height: 16px;
-  font-size: x-small;
+  font-size: small;
   background-color: #41505d;
   color: white;
 }
@@ -44,15 +45,6 @@ select {
 
 .select-to-right {
   left: 80%;
-}
-
-span > p {
-  display: inline;
-  padding: 0px;
-  margin: 0px;
-  width: 100%;
-  color: white;
-  font-size: 0.77em;
 }
 
 h3 {
@@ -113,7 +105,11 @@ form > input {
 
 .span_0_header {
   text-align: right;
-  line-height: 1.5 !important;
+}
+
+.span_0_header > i{
+  margin-left: 4px;
+  line-height: 1.5;
 }
 
 .close {
@@ -136,6 +132,10 @@ form > input {
 @media only screen and (max-height: 440px) {
   .container-fluid.header {
     padding: 2px 10%;
+  }
+
+  .container-fluid.header > span {
+    font-size: small;
   }
 
   .container-fluid.footer {
@@ -163,12 +163,11 @@ form > input {
 
 @media only screen and (min-width: 768px) {
   .container-fluid.header {
-    padding: 16px 20%;
+    padding: 8px 10%;
   }
 
-  span > p {
-    font-size: 1.1em;
-    font-weight: bold;
+  .container-fluid.header > span {
+    font-size: larger;
   }
 
   span > i {

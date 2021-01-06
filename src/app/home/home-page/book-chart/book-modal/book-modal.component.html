@@ -10,15 +10,25 @@
 <!--  <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Yes</button>-->
 <!--</div>-->
 
+<!--header-->
+<div class="fid-actions-bar">
+  <span *ngIf="data.startPage === 0" (click)="toggleShowSummary()" title="toggle summary">
+    <i class="fas fa-list-ol"></i>
+  </span>
 
-<span *ngIf="data.startPage === 0" class="badge badge-pill badge-light" (click)="toggleShowSummary()">toggle</span>
+  <span title="close summary" (click)="dialogRef.close()">
+    <i class="fas fa-window-close"></i>
+  </span>
+</div>
+
+
 <div *ngIf="showSummary" class="summary-container">
-  <ol *ngFor="let key of keys()">
+  <ul *ngFor="let key of keys()">
     {{key}}
-    <li *ngFor="let bookmark of data.bookmarks[key]" (click)="goToPage(bookmark.page)" style="padding-left: 4px">
-      {{bookmark.title}}
+    <li *ngFor="let bookmark of data.bookmarks[key]" (click)="goToPage(bookmark.page)">
+      <i class="fas fa-chevron-right"></i> {{bookmark.title}}
     </li>
-  </ol>
+  </ul>
 </div>
 
 <div *ngIf="!loaded" class="flex-container">
@@ -37,4 +47,47 @@
               [stick-to-page]="false"
   >
   </pdf-viewer>
+</div>
+
+<div class="fid-comments-container">
+  <div class="fid-comment">
+    <span>
+      <i class="fas fa-user-circle"></i>
+    </span>
+
+    <span class="badge badge-primary">
+       My wife and I are lucky that we have regular employment, but we still find time to work on her business which used to be the main source of our income during festival season in the uk,
+      My wife and I are lucky that we have regular employment, but we still find time to work on her business which used to be the main source of our income during festival season in the uk
+    </span>
+  </div>
+
+  <div class="fid-comment">
+    <span>
+      <i class="fas fa-user-circle"></i>
+    </span>
+
+    <span class="badge badge-dark">
+       My wife and I are lucky that we have regular employment, but we still find time to work on her business which used to be the main source of our income during festival season in the uk,
+    </span>
+  </div>
+
+  <div class="fid-comment">
+    <span>
+      <i class="fas fa-user-circle"></i>
+    </span>
+
+    <span class="badge badge-light">
+       My wife and I are lucky that we have regular employment!
+    </span>
+  </div>
+
+  <div class="fid-comment">
+    <span>
+      <i class="fas fa-user-circle"></i>
+    </span>
+
+    <span class="badge badge-secondary">
+       My wife and I are lucky that we have regular employment!
+    </span>
+  </div>
 </div>

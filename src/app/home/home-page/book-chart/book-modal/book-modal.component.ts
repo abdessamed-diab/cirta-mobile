@@ -39,20 +39,14 @@ export class BookModalComponent implements OnInit {
 
   updateArrayBuffer(): void{
     this.homeService.streamPagesOfBook(this.data.book.id, this.data.book.sourceUrl, this.nextPage).subscribe(
-      (responseOutputStream: HttpResponse<ArrayBuffer>) => {
-        if (responseOutputStream.type === 4) {
-          if (responseOutputStream.body.byteLength > 0) {
-            this.src = {
-              data: responseOutputStream.body,
-              pdfBug: false,
-              disableStream: true,
-              disableAutoFetch: true
-            };
-          } else {
-            console.log('reach end of file, no page left.');
-          }
-          this.loaded = true;
-        }
+      (responseOutputStream: ArrayBuffer) => {
+        this.src = {
+          data: responseOutputStream,
+          pdfBug: false,
+          disableStream: true,
+          disableAutoFetch: true
+        };
+        this.loaded = true;
       },
       (error: HttpErrorResponse) => {
         console.log('book-modal: ', error);

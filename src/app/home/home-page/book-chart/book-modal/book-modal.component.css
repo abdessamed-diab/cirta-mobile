@@ -1,7 +1,7 @@
 .book-content {
-  padding: 8px 0px;
+  padding-top: 5%;
   display: block;
-  height: 100%;
+  height: 80%;
 }
 
 .flex-container {
@@ -20,26 +20,92 @@
 .summary-container {
   position: absolute;
   z-index: 100;
-  max-width: 256px;
-  max-height: 80%;
+  max-width: 66%;
+  height: 100%;
   overflow-y: auto;
-  top: 10%;
-  left: 5%;
+  top: 5%;
+  left: 2%;
   padding: 8px;
   background-color: whitesmoke;
   opacity: 0.95;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 
-span {
+.fid-actions-bar {
   position: absolute;
-  z-index: 50;
-  top: 5%;
+  display: block;
+  top: 0;
+  z-index: 100;
+  background-color: aliceblue;
+  width: 100%;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
 
-ol {
+.fid-actions-bar > span {
+  position: relative;
+  margin: 4px 8px;
+}
+
+ul {
   list-style-type: none;
-  padding-left: 0px;
-  font-size: xx-small;
+  margin-bottom: 12px;
+  padding: 0;
 }
 
+/* Style the caret/arrow */
+li {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+  margin-left: 6px;
+  font-size: smaller;
+  font-weight: bold;
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+li::before {
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.fid-comments-container {
+  position: relative;
+  display: block;
+  margin: auto;
+  padding-top: 32px;
+  height: 100%;
+  background-color: aliceblue;
+  z-index: 50;
+  box-shadow: 0px 9px 20px 12px rgba(0, 0, 0, 0.2), 0px 20px 20px 8px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+.fid-comment {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  margin: 0px 8px 24px 8px;
+  z-index: 50;
+}
+
+.fid-comment > span:first-child {
+  position: absolute;
+  font-size: 38px;
+  width: 48px;
+  height: 48px;
+  z-index: 50;
+}
+
+.fid-comment > span:nth-child(2) {
+  position: inherit;
+  white-space: normal;
+  z-index: 50;
+  text-align: left;
+  border-radius: 8px;
+  display: inline-block;
+  margin-left: 42px;
+  margin-top: 4px;
+}
+
+span > i {
+  vertical-align: super;
+}

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   pseudoName = new FormControl('');
   password   = new FormControl('');
   hiddenWarnMessage = true;
-  loading = true;
+  loading = false;
   language = 1;
 
   constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) { }

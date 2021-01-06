@@ -50,7 +50,8 @@ export class BookChartComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(BookModalComponent, {
-      width: `${window.innerWidth / 1.1}px`, height: `${window.innerHeight / 1.1}px`,
+      width: `${window.innerWidth}px`, height: `${window.innerHeight}px`,
+      minWidth: '100%',
       data: {
         book: this.selectedBook,
         cadence: 5,
