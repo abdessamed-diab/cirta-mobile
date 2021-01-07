@@ -3,6 +3,10 @@ ul.navbar-nav {
   direction: rtl;
 }
 
+.left-to-right {
+  direction: ltr !important;
+}
+
 li.nav-item {
   width: 25%;
   text-align: center;

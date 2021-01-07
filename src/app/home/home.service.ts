@@ -10,7 +10,7 @@ import {SearchableSummaryItem} from './models/SearchableSummaryItem';
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class HomeService{
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 

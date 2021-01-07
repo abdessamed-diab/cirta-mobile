@@ -10,3 +10,27 @@ body , html{
 mat-dialog-container{
   padding: 0px 0px !important;
 }
+
+.ng2-pdf-viewer-container {
+  overflow-x: hidden !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: aliceblue;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: darkgray;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

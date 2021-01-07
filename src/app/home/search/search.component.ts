@@ -36,9 +36,9 @@ export class SearchComponent implements OnInit {
 
   onSelectedBookItem(searchableSummaryItem: SearchableSummaryItem): void {
     const dialogRef = this.dialog.open(BookModalComponent, {
-      width: `${window.innerWidth / 1.1}px`, height: `${window.innerHeight / 1.1}px`,
+      width: `${window.innerWidth}px`, height: `${window.innerHeight}px`,
+      minWidth: '100%',
       data: {
-        email: '',
         book: {
           id: searchableSummaryItem.bookId,
           sourceUrl: searchableSummaryItem.bookSourceUrl
