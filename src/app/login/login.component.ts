@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LoginService} from './login.service';
 import {FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {VALUES_AR, VALUES_EN} from '../translation/en';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   pseudoName = new FormControl('');
   password   = new FormControl('');
   hiddenWarnMessage = true;
@@ -29,6 +29,9 @@ export class LoginComponent implements OnInit {
       // this.pseudoName.disable({onlySelf: true, emitEvent: false});
       // this.password.disable({onlySelf: true, emitEvent: false});
     }
+  }
+
+  ngOnDestroy(): void {
   }
 
   private loginUser(): void{
@@ -59,6 +62,7 @@ export class LoginComponent implements OnInit {
     this.pseudoName.setValue('');
     this.password.setValue('');
     form.submit();
+    this.ngOnDestroy();
   }
 
   onEnter(): void {
