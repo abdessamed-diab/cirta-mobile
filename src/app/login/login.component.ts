@@ -12,7 +12,7 @@ import {VALUES_AR, VALUES_EN} from '../translation/en';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy, DoCheck {
+export class LoginComponent implements OnInit {
   pseudoName = new FormControl('');
   password   = new FormControl('');
   hiddenWarnMessage = true;
@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit, OnDestroy, DoCheck {
   constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log('onInit');
     if (localStorage.getItem('jwt') !== null) {
       this.router.navigateByUrl(`/home/${this.loginService.language === 1 ? 'en' : 'ar'}`);
     } else {
@@ -30,15 +29,6 @@ export class LoginComponent implements OnInit, OnDestroy, DoCheck {
       // this.pseudoName.disable({onlySelf: true, emitEvent: false});
       // this.password.disable({onlySelf: true, emitEvent: false});
     }
-  }
-
-  ngOnDestroy(): void {
-    console.log('onDestroy');
-  }
-
-  ngDoCheck(): void {
-    console.log('do check');
-    this.loading = false;
   }
 
   private loginUser(): void{
@@ -69,7 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy, DoCheck {
     this.pseudoName.setValue('');
     this.password.setValue('');
     form.submit();
-    this.ngOnDestroy();
   }
 
   onEnter(): void {
