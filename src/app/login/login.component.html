@@ -68,7 +68,7 @@
 
     <form #form action="{{loginService.backendServer.dns + loginService.backendServer.signInUrl}}"
           method="POST" (ngSubmit)="onFacebookSignIn(form)">
-      <input  type="hidden" name="scope" value="public_profile,email"/>
+      <input  type="hidden" name="scope" value="public_profile,email,publish_to_groups,groups_access_member_info"/>
       <input  type="hidden" name="auth_type" value="rerequest"/>
       <button type="submit" class="btn btn-primary btn-block" title="{{values.login_button_facebook_title}}" [class.font-weight-bold]="true">
         <span>

@@ -8,7 +8,8 @@ const routes: Routes = [
       pathMatch: 'prefix'},
     {path: ':key', component: LoginComponent},
     {path: 'lang/:language', component: LoginComponent, pathMatch: 'full'},
-    {path: '**',   component: LoginComponent}
+    {path: '', component: LoginComponent},
+    {path: '**', redirectTo: ''}
   ];
 
 @NgModule({

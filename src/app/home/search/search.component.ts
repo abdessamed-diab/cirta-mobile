@@ -7,6 +7,8 @@ import {Book} from '../models/Book';
 import {Bookmarks} from '../models/Bookmarks';
 import {MatDialog} from '@angular/material/dialog';
 import {BookModalComponent} from '../home-page/book-chart/book-modal/book-modal.component';
+import {ActivatedRoute} from '@angular/router';
+import {VALUES_AR, VALUES_EN} from '../../translation/search';
 
 interface DialogData {
   book: Book;
@@ -28,8 +30,13 @@ export class SearchComponent implements OnInit {
   private tab: string[] = ['ArrowRight', 'ArrowLeft', 'Enter', 'ArrowDown', 'ArrowUp'];
   maxResultSet =  10;
   selectedSummaryItemNumber = 0;
+  language: number;
 
-  constructor(private homeService: HomeService, public dialog: MatDialog) { }
+  constructor(private homeService: HomeService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
+    if (activatedRoute.snapshot.paramMap.has('language')) {
+      this.language = activatedRoute.snapshot.paramMap.get('language') === 'en' ? 1 : 0;
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -93,6 +100,10 @@ export class SearchComponent implements OnInit {
       this.searchInput.setValue('');
       this.items = [];
     }
+  }
+
+  public get values(): any {
+    return this.language === 1 ? VALUES_EN : VALUES_AR;
   }
 
 }

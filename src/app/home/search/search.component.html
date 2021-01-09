@@ -1,18 +1,20 @@
 <div class="search-header">
-  <a tabindex="1" routerLink="/home" ><i class="far fa-arrow-alt-circle-right"></i></a>
+  <a tabindex="1" routerLink="/home" [style]="language === 0 ? 'right: 16px' : 'left: 16px'">
+    <i class="far" [ngClass]="language === 0 ? 'fa-arrow-alt-circle-right' : 'fa-arrow-alt-circle-left'"></i>
+  </a>
   <strong>Rahba</strong>
 </div>
 
 
 <div class="search-input-component">
-  <i class="fas fa-search"></i>
+  <i class="fas fa-search" [style]="language === 0 ? 'right: 20px;' : 'left: 20px;' "></i>
   <i tabindex="3" class="fas fa-times-circle"
      (click)="searchInput.setValue(''); items= []"
-     (keyup)="onResetSearchInput($event)">
+     (keyup)="onResetSearchInput($event)"
+     [style]="language === 0 ? 'left: 64px;' : 'right: 74px;' ">
   </i>
 
-  <div class="input-flex-container">
-    <a tabindex="4" routerLink="/home" style="flex-grow: 2; line-height: 32px" href="#" >الغــاء</a>
+  <div class="input-flex-container" [style]="language === 0 ? 'direction: rtl' : 'direction: ltr'">
     <input
       tabindex="2"
       style="flex-grow: 8"
@@ -20,17 +22,24 @@
       (keyup)="onSearchInputKeyUp($event)"
       type="text"
       class="form-control form-control-sm"
-      placeholder="بحـت"
+      [ngClass]="language === 0 ? 'input-to-right' : 'input-to-left' "
+      placeholder="{{values.search_input_placeholder}}"
+      title="{{values.search_input_title}}"
       autofocus
     />
+    <a tabindex="4" routerLink="/home" style="flex-grow: 2; line-height: 32px" href="#"
+      title="{{values.search_cancel_title}}">
+      {{values.search_cancel}}
+    </a>
   </div>
   <div #autoComplete class="autocomplete-items">
     <div *ngFor="let summaryItem of items; let co = index"
          id="{{summaryItem.id}}"
          (click)="onSelectedBookItem(summaryItem)"
-         (keyup.enter)="onSelectedBookItem(summaryItem)">
+         (keyup.enter)="onSelectedBookItem(summaryItem)"
+         [ngClass]="language === 0 ? 'to-right' : 'to-left' ">
 
-      <i class="fas fa-search"></i>
+      <i class="fas fa-search" [style]="language === 0 ? 'right: 16px;' : 'left: 16px;' "></i>
       <span tabindex="{{co+5}}"
             (keyup.arrowDown)="onSummaryItemKeyPress(autoComplete, true)"
             (keyup.arrowUp)="onSummaryItemKeyPress(autoComplete, false)"
@@ -38,8 +47,9 @@
       </span>
 
     </div>
-    <div *ngIf="items.length === maxResultSet">
-      <a href="#">  رؤية المزيد من النتائج عن:   <strong> {{searchInput.value}} </strong></a>
+    <div *ngIf="items.length === maxResultSet"
+         [ngClass]="language === 0 ? 'to-right' : 'to-left' ">
+      <a href="#">{{values.search_see_more}} <strong> {{searchInput.value}} </strong></a>
     </div>
   </div>
 
