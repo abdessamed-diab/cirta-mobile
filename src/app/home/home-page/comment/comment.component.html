@@ -1,0 +1,46 @@
+<div class="user-comment">
+  <div style="flex-grow: 0; align-self: center">
+    <i><img src="{{'data:image/jpg;base64,' + homeService.userProfile.userProfileImage}}"></i>
+  </div>
+
+  <div style="flex-grow: 8;">
+    <mat-form-field>
+      <textarea tabindex="{{index}}"
+                [formControl]="input"
+                matInput id="input-user-comment"
+                type="text"
+                placeholder="question:">
+      </textarea>
+    </mat-form-field>
+  </div>
+
+  <div style="flex-grow: 0; align-self: center">
+      <button
+        tabindex="{{1 + index}}"
+        (click)="postComment()"
+        mat-stroked-button
+        color="#0f6674">
+        Post
+      </button>
+  </div>
+</div>
+
+<div *ngFor="let comment of comments; let co = index">
+  <div class="fid-comment">
+    <span *ngIf="!comment.userProfile.userProfileImage">
+      <i class="fas fa-user-circle"></i>
+    </span>
+
+    <span *ngIf="comment.userProfile.userProfileImage">
+      <i><img src="{{'data:image/jpg;base64,' + comment.userProfile.userProfileImage}}"></i>
+    </span>
+
+    <span class="badge"
+          [class.badge-dark]="comment.badge === 'badge-dark' "
+          [class.badge-light]="comment.badge === 'badge-light' ">
+      <strong>{{comment.userProfile.username}}</strong> <br >
+      {{comment.content}}
+    </span>
+
+  </div>
+</div>

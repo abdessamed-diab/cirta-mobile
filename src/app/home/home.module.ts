@@ -13,9 +13,10 @@ import {MatInputModule} from '@angular/material/input';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {SearchComponent} from './search/search.component';
 import { SummaryItemTitlePipe } from './search/summary-item-title/summary-item-title.pipe';
+import { CommentComponent } from './home-page/comment/comment.component';
 
 @NgModule({
-  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent, SummaryItemTitlePipe],
+  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent, SummaryItemTitlePipe, CommentComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

@@ -7,4 +7,5 @@ export interface Book {
   releaseDate: string;
   sourceUrl: string;
   coverPhotoUrl: string;
+  coverPhotoBase64: string;
 }

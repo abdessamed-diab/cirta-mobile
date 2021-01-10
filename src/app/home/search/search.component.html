@@ -2,7 +2,7 @@
   <a tabindex="1" routerLink="/home" [style]="language === 0 ? 'right: 16px' : 'left: 16px'">
     <i class="far" [ngClass]="language === 0 ? 'fa-arrow-alt-circle-right' : 'fa-arrow-alt-circle-left'"></i>
   </a>
-  <strong>Rahba</strong>
+  <strong *ngIf="homeService.userProfile !== undefined">{{homeService.userProfile.username}}</strong>
 </div>
 
 

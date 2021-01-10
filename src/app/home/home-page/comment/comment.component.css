@@ -1,0 +1,60 @@
+.user-comment {
+  border-top: solid 1px lightgray;
+  padding: 8px 5px 24px 4px;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.user-comment > div {
+  margin: 0px 4px;
+}
+
+.user-comment i {
+  vertical-align: sub;
+}
+
+i > img {
+  border-radius: 32px;
+  width: 37px;
+  height: 37px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.fid-comment {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  margin: 0px 8px 24px 8px;
+  z-index: 50;
+}
+
+.fid-comment > span:first-child {
+  position: absolute;
+  font-size: 38px;
+  width: 48px;
+  height: 48px;
+  z-index: 50;
+}
+
+.fid-comment > span:nth-child(2) {
+  position: inherit;
+  white-space: normal;
+  z-index: 50;
+  text-align: left;
+  border-radius: 8px;
+  display: inline-block;
+  margin-left: 42px;
+  margin-top: 4px;
+}
+
+.fid-comment i {
+  vertical-align: text-top;
+}
+
+.fid-comment i > img {
+  vertical-align: super;
+}

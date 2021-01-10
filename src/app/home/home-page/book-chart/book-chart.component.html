@@ -1,5 +1,4 @@
 
-
 <div style="display: inline-flex; width: 100%">
   <div class="side-arrow" style="margin-left: 16px">
     <div class="arrows-flex-container">
@@ -13,8 +12,8 @@
 
   <!--scrollable content-->
   <div *ngIf="loaded" class="flex-container">
-    <div *ngFor="let book of books">
-      <div class="book-chart-box" (click)="onCLick(book)" [ngStyle]="base64ToImg(book.coverPhotoUrl)">
+    <div *ngFor="let book of homeService.favoriteBooks">
+      <div class="book-chart-box" (click)="onCLick(book)" [ngStyle]="base64ToImg(book.coverPhotoBase64)">
         <div></div>
         <div></div>
         <div></div>

@@ -4,13 +4,15 @@ import {Observable} from 'rxjs';
 import {Book} from './models/Book';
 import {backendServer} from '../../environments/environment';
 import {Router} from '@angular/router';
-import {Bookmarks} from './models/Bookmarks';
+import {BookChartModalData} from './models/Bookmarks';
 import {SearchableSummaryItem} from './models/SearchableSummaryItem';
+import {UserProfile} from './models/UserProfile';
+import {Comment} from './models/Comment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HomeService{
+  private user: UserProfile = undefined;
+  private favorites: Book[] = undefined;
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
@@ -30,7 +32,15 @@ export class HomeService{
     );
   }
 
-  streamBookByBookId(bookId: number): Observable<HttpEvent<ArrayBuffer>> {
+  public get favoriteBooks(): Book[] {
+    return this.favorites;
+  }
+
+  public set favoriteBooks(books: Book[]) {
+    this.favorites = books;
+  }
+
+  private streamBookByBookId(bookId: number): Observable<HttpEvent<ArrayBuffer>> {
     return this.httpClient.get(
       backendServer.dns + 'book/stream/' + bookId,
       {
@@ -62,8 +72,8 @@ export class HomeService{
     );
   }
 
-  loadBookBookmarks(bookId: number, sourceUrl: string): Observable<HttpResponse<Bookmarks>> {
-    return this.httpClient.get<Bookmarks>(
+  loadBookBookmarks(bookId: number, sourceUrl: string): Observable<HttpResponse<BookChartModalData>> {
+    return this.httpClient.get<BookChartModalData>(
       backendServer.dns + `book/bookmark/${bookId}`,
       {
         headers: {
@@ -78,6 +88,29 @@ export class HomeService{
     );
   }
 
+  fetchUserProfile(): Observable<HttpResponse<UserProfile>> {
+    return this.httpClient.get<UserProfile>(
+      backendServer.dns + `search/user/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          Accept: 'application/json',
+          'Content-Type': 'text/plain'
+        },
+        observe: 'response',
+        responseType: 'json'
+      }
+    );
+  }
+
+  public get userProfile(): UserProfile {
+    return this.user;
+  }
+
+  public set userProfile(user: UserProfile) {
+    this.user = user;
+  }
+
   autoCompleteKeyword(keyword: string): Observable<HttpResponse<SearchableSummaryItem[]>> {
     return this.httpClient.get<SearchableSummaryItem[]>(
       backendServer.dns + `search/${keyword.toLowerCase()}`,
@@ -87,6 +120,39 @@ export class HomeService{
           content: 'application/json',
           Accept: 'application/json',
           'Content-Type': 'text/plain'
+        },
+        observe: 'response',
+        responseType: 'json'
+      }
+    );
+  }
+
+  postComment(bookId: number, body: Comment): Observable<HttpResponse<Comment>> {
+    return this.httpClient.post<Comment>(
+      backendServer.dns + `book/${bookId}/comment`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          content: 'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        observe: 'response',
+        responseType: 'json'
+      }
+    );
+  }
+
+  fetchComments(bookId: number, pageNumber: number): Observable<HttpResponse<Comment[]>> {
+    return this.httpClient.get<Comment[]>(
+      backendServer.dns + `book/${bookId}/comments/${pageNumber}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          content: 'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         },
         observe: 'response',
         responseType: 'json'

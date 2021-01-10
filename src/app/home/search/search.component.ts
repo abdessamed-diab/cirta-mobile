@@ -4,7 +4,7 @@ import {HomeService} from '../home.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {SearchableSummaryItem} from '../models/SearchableSummaryItem';
 import {Book} from '../models/Book';
-import {Bookmarks} from '../models/Bookmarks';
+import {BookChartModalData} from '../models/Bookmarks';
 import {MatDialog} from '@angular/material/dialog';
 import {BookModalComponent} from '../home-page/book-chart/book-modal/book-modal.component';
 import {ActivatedRoute} from '@angular/router';
@@ -13,7 +13,7 @@ import {VALUES_AR, VALUES_EN} from '../../translation/search';
 interface DialogData {
   book: Book;
   cadence: number;
-  bookmarks: Bookmarks;
+  modalData: BookChartModalData;
   startPage: number;
 }
 
@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
   selectedSummaryItemNumber = 0;
   language: number;
 
-  constructor(private homeService: HomeService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
+  constructor(public homeService: HomeService, public dialog: MatDialog, private activatedRoute: ActivatedRoute) {
     if (activatedRoute.snapshot.paramMap.has('language')) {
       this.language = activatedRoute.snapshot.paramMap.get('language') === 'en' ? 1 : 0;
     }
@@ -48,10 +48,11 @@ export class SearchComponent implements OnInit {
       data: {
         book: {
           id: searchableSummaryItem.bookId,
-          sourceUrl: searchableSummaryItem.bookSourceUrl
+          sourceUrl: searchableSummaryItem.bookSourceUrl,
+          coverPhotoUrl: searchableSummaryItem.coverPhotoUrl
         },
         cadence: 5,
-        bookmarks: {bookmark: {}},
+        modalData: {bookmarks: {}, userPicture: this.homeService.userProfile.userProfileImage},
         startPage: searchableSummaryItem.page + 1
       }
     });
@@ -65,7 +66,7 @@ export class SearchComponent implements OnInit {
         (error: HttpErrorResponse) => {
           console.log('error: ', error);
           this.items = [];
-          if (error.status === 401) {
+          if (error.status === 401 || error.status === 500) {
             this.homeService.logout();
           }
         }

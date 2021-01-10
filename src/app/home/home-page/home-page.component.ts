@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {HomeService} from '../home.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {VALUES_AR, VALUES_EN} from '../../translation/en';
+import {HttpResponse} from '@angular/common/http';
+import {Book} from '../models/Book';
+import {UserProfile} from '../models/UserProfile';
 
 @Component({
   selector: 'rahba-home-page',
@@ -10,10 +13,36 @@ import {VALUES_AR, VALUES_EN} from '../../translation/en';
 })
 export class HomePageComponent implements OnInit {
   public language =  1;
-  constructor(public homeService: HomeService, private activatedRoute: ActivatedRoute) { }
+  books: Book[];
+  constructor(public homeService: HomeService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.initPropsFromUrlParams();
+
+    if (this.homeService.favoriteBooks === undefined) {
+      this.loadFavoriteBook();
+    }
+
+    if (this.homeService.userProfile === undefined) {
+      this.homeService.fetchUserProfile().subscribe(
+        (response: HttpResponse<UserProfile>) => {this.homeService.userProfile = response.body; },
+        (error) => {
+          console.log('cannot fetch facebook user profile: ', error);
+          this.homeService.userProfile = {username: 'Rahba', userProfileImage: ''}; // defaults
+        }
+      );
+    }
+  }
+
+  private loadFavoriteBook(): void {
+    this.homeService.getFavoritesBookResponse().subscribe(
+      (book: HttpResponse<Book[]>) => {this.books = book.body; this.homeService.favoriteBooks = book.body; },
+      (error: ErrorEvent) => {
+        console.log('error', error);
+        localStorage.removeItem('jwt');
+        this.router.navigateByUrl('/');
+      }
+    );
   }
 
   private initPropsFromUrlParams(): void {

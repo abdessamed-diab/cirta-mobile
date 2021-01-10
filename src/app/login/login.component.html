@@ -1,3 +1,4 @@
+
 <div class="container-fluid header">
   <span [ngClass]="loginService.language === 0 ? 'span_0_header' : '' ">
     <i class="fas fa-info-circle" [class.float-right]="loginService.language===0"></i>
@@ -8,9 +9,7 @@
 <select name="loginService.language" id="loginService.language-select"
         (change)="onSelectChange($event.target.value)"
         [class.select-to-left]="loginService.language === 0"
-        [class.select-to-right]="loginService.language === 1"
-        class=""
->
+        [class.select-to-right]="loginService.language === 1">
   <option value="en" [selected]="loginService.language === 1">english</option>
   <option value="ar" [selected]="loginService.language === 0">عربي</option>
 </select>
@@ -88,3 +87,4 @@
   <a href="https://cirta.app/privacy_policy">Privacy <i class="fas fa-user-secret"></i></a>
   <a href="https://aws.amazon.com/"><strong>Amazon </strong><i class="fab fa-aws"></i></a>
 </div>
+

@@ -1,3 +1,8 @@
+export interface BookChartModalData {
+  bookmarks: Bookmarks;
+  userPicture: string;
+}
+
 export interface Bookmarks {
   bookmark: {
     headerTitle: Bookmark[],

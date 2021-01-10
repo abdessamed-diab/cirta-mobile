@@ -16,19 +16,15 @@ export class LoginComponent implements OnInit {
   pseudoName = new FormControl('');
   password   = new FormControl('');
   hiddenWarnMessage = true;
-  loading = false;
-
-  constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit(): void {
+  loading = true;
+  constructor(public loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute) {
     if (localStorage.getItem('jwt') !== null) {
       this.router.navigateByUrl(`/home/${this.loginService.language === 1 ? 'en' : 'ar'}`);
-    } else {
-      this.loading = false;
-      this.loginUser();
-      // this.pseudoName.disable({onlySelf: true, emitEvent: false});
-      // this.password.disable({onlySelf: true, emitEvent: false});
     }
+  }
+
+  ngOnInit(): void {
+    this.loginUser();
   }
 
   private loginUser(): void{
@@ -36,8 +32,7 @@ export class LoginComponent implements OnInit {
       (response: HttpResponse<AuthResponse>) => {
           response.status !== 404 ? this.storeJwtAndRedirect(response.body) : this.loading = false;
         },
-      (error: ErrorEvent) => { console.log('error', error); this.loading = false; },
-      () => this.loading = false
+      (error: ErrorEvent) => { console.log('error', error); this.loading = false; }
     );
   }
 

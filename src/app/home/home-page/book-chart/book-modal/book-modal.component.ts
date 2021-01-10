@@ -4,12 +4,13 @@ import {Book} from '../../../models/Book';
 import {HomeService} from '../../../home.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
-import {Bookmarks} from '../../../models/Bookmarks';
+import {BookChartModalData} from '../../../models/Bookmarks';
+import {Comment} from '../../../models/Comment';
 
 interface DialogData {
   book: Book;
   cadence: number;
-  bookmarks: Bookmarks;
+  modalData: BookChartModalData;
   startPage: number;
 }
 
@@ -26,6 +27,8 @@ export class BookModalComponent implements OnInit {
   canRefresh = false;
   loaded = false;
   showSummary = false;
+  pageComments: Comment[] = [];
+  currentPage: number;
   constructor(public dialogRef: MatDialogRef<BookModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private homeService: HomeService) { }
@@ -35,9 +38,23 @@ export class BookModalComponent implements OnInit {
     this.dialogRef.afterOpened().subscribe(
       () => this.updateArrayBuffer()
     );
+
   }
 
   updateArrayBuffer(): void{
+    this.currentPage = this.nextPage;
+
+    this.homeService.fetchComments(this.data.book.id, this.currentPage).subscribe(
+      (response: HttpResponse<Comment[]>) => {
+        if (response.body !== null && response.body !== undefined && response.body.length > 0) {
+          this.pageComments = response.body;
+        } else {
+          this.pageComments = [];
+        }
+      },
+      (error) => {console.log('error fetch comments: ', error) ; }
+    );
+
     this.homeService.streamPagesOfBook(this.data.book.id, this.data.book.sourceUrl, this.nextPage).subscribe(
       (responseOutputStream: ArrayBuffer) => {
         this.src = {
@@ -59,6 +76,7 @@ export class BookModalComponent implements OnInit {
   }
 
   onPageChange(targetPage: number): void {
+    this.currentPage = this.nextPage + targetPage - 1;
   }
 
   callBackAfterLoadComplete(pdfDocumentProxy: PDFDocumentProxy): void {
@@ -88,7 +106,7 @@ export class BookModalComponent implements OnInit {
   }
 
   keys(): string[] {
-    return Object.keys(this.data.bookmarks);
+    return Object.keys(this.data.modalData.bookmarks);
   }
 
   goToPage(page: number): void {

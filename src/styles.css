@@ -27,10 +27,11 @@ mat-dialog-container{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: darkgray;
+  background: rgba(1, 10, 20 , 0.1);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+

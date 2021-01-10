@@ -8,4 +8,5 @@ export interface SearchableSummaryItem {
   bookName: string;
   bookSourceUrl: string;
   keywords: string;
+  coverPhotoUrl: string;
 }

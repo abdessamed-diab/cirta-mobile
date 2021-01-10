@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
 import {Book} from '../../models/Book';
 import {HomeService} from '../../home.service';
@@ -6,12 +6,12 @@ import {Router} from '@angular/router';
 
 import {MatDialog} from '@angular/material/dialog';
 import {BookModalComponent} from './book-modal/book-modal.component';
-import {Bookmarks} from '../../models/Bookmarks';
+import {BookChartModalData} from '../../models/Bookmarks';
 
 interface DialogData {
   book: Book;
   cadence: number;
-  bookmarks: Bookmarks;
+  modalData: BookChartModalData;
   startPage: number;
 }
 
@@ -21,27 +21,14 @@ interface DialogData {
   styleUrls: ['./book-chart.component.css']
 })
 export class BookChartComponent implements OnInit {
-  books: Book[];
+
   email: string;
   selectedBook: Book;
-  bookmarks: Bookmarks;
-  loaded = false;
-
-  constructor(public homeService: HomeService, private router: Router, public dialog: MatDialog) { }
+  modalData: BookChartModalData;
+  loaded = true;
+  constructor(public homeService: HomeService, private router: Router, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.loadFavoriteBook();
-  }
-
-  loadFavoriteBook(): void {
-    this.homeService.getFavoritesBookResponse().subscribe(
-      (book: HttpResponse<Book[]>) => {this.books = book.body; this.loaded = true; },
-      (error: ErrorEvent) => {
-        console.log('error', error);
-        localStorage.removeItem('jwt');
-        this.router.navigateByUrl('/');
-      }
-    );
   }
 
   base64ToImg(base64txt: string): any {
@@ -55,7 +42,7 @@ export class BookChartComponent implements OnInit {
       data: {
         book: this.selectedBook,
         cadence: 5,
-        bookmarks: this.bookmarks,
+        modalData: this.modalData,
         startPage: 0
       }
     });
@@ -67,8 +54,9 @@ export class BookChartComponent implements OnInit {
 
   loadBookmarks(): void {
     this.homeService.loadBookBookmarks(this.selectedBook.id, this.selectedBook.sourceUrl).subscribe(
-      (response: HttpResponse<Bookmarks>) => {
-        this.bookmarks = response.body;
+      (response: HttpResponse<BookChartModalData>) => {
+        this.modalData = response.body;
+        this.modalData.userPicture = this.homeService.userProfile.userProfileImage;
         this.loaded = true;
         this.openDialog();
         },

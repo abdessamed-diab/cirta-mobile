@@ -12,20 +12,20 @@
 
 <!--header-->
 <div class="fid-actions-bar">
-  <span *ngIf="data.startPage === 0" (click)="toggleShowSummary()" title="toggle summary">
-    <i class="fas fa-list-ol"></i>
+  <span tabindex="1" *ngIf="data.startPage === 0" (click)="toggleShowSummary()" title="toggle summary">
+    <button mat-mini-fab><i class="fas fa-list-ol"></i></button>
   </span>
 
-  <span title="close summary" (click)="dialogRef.close()">
+  <span tabindex="{{1 + keys().length}}" title="close summary" (click)="dialogRef.close()">
     <i class="fas fa-window-close"></i>
   </span>
 </div>
 
 
 <div *ngIf="showSummary" class="summary-container">
-  <ul *ngFor="let key of keys()">
+  <ul *ngFor="let key of keys(); let co = index">
     {{key}}
-    <li *ngFor="let bookmark of data.bookmarks[key]" (click)="goToPage(bookmark.page)">
+    <li tabindex="{{co + 1}}" *ngFor="let bookmark of data.modalData.bookmarks[key]" (click)="goToPage(bookmark.page)">
       <i class="fas fa-chevron-right"></i> {{bookmark.title}}
     </li>
   </ul>
@@ -45,49 +45,20 @@
               (pageChange)="onPageChange($event)"
               (after-load-complete)="callBackAfterLoadComplete($event)"
               [stick-to-page]="false"
+              tabindex="{{2 + keys().length}}"
   >
   </pdf-viewer>
 </div>
 
 <div class="fid-comments-container">
-  <div class="fid-comment">
-    <span>
-      <i class="fas fa-user-circle"></i>
-    </span>
 
-    <span class="badge badge-primary">
-       My wife and I are lucky that we have regular employment, but we still find time to work on her business which used to be the main source of our income during festival season in the uk,
-      My wife and I are lucky that we have regular employment, but we still find time to work on her business which used to be the main source of our income during festival season in the uk
-    </span>
-  </div>
+  <rahba-comment
+    tabindex="{{3 + keys().length}}"
+    [index]="4 + keys().length"
+    [book]="data.book"
+    [currentPage]="currentPage"
+    [comments]="pageComments"
+    [language]="1">
+  </rahba-comment>
 
-  <div class="fid-comment">
-    <span>
-      <i class="fas fa-user-circle"></i>
-    </span>
-
-    <span class="badge badge-dark">
-       My wife and I are lucky that we have regular employment, but we still find time to work on her business which used to be the main source of our income during festival season in the uk,
-    </span>
-  </div>
-
-  <div class="fid-comment">
-    <span>
-      <i class="fas fa-user-circle"></i>
-    </span>
-
-    <span class="badge badge-light">
-       My wife and I are lucky that we have regular employment!
-    </span>
-  </div>
-
-  <div class="fid-comment">
-    <span>
-      <i class="fas fa-user-circle"></i>
-    </span>
-
-    <span class="badge badge-secondary">
-       My wife and I are lucky that we have regular employment!
-    </span>
-  </div>
 </div>
