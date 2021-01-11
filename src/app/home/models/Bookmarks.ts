@@ -1,6 +1,7 @@
 export interface BookChartModalData {
   bookmarks: Bookmarks;
   userPicture: string;
+  language: number;
 }
 
 export interface Bookmarks {

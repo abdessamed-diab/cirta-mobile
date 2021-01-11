@@ -12,17 +12,25 @@
 
 <!--header-->
 <div class="fid-actions-bar">
-  <span tabindex="1" *ngIf="data.startPage === 0" (click)="toggleShowSummary()" title="toggle summary">
-    <button mat-mini-fab><i class="fas fa-list-ol"></i></button>
+  <span tabindex="1"
+        *ngIf="data.startPage === 0"
+        (click)="toggleShowSummary()"
+        [class.float-right]="homeService.language === 0"
+        title="toggle summary">
+    <button mat-icon-button color="basic"><i class="fas fa-list-ol"></i></button>
   </span>
 
-  <span tabindex="{{1 + keys().length}}" title="close summary" (click)="dialogRef.close()">
-    <i class="fas fa-window-close"></i>
+  <span
+    tabindex="{{1 + keys().length}}"
+    [class.float-right]="homeService.language === 1"
+    title="close summary"
+    (click)="dialogRef.close()">
+    <button mat-icon-button color="basic"><i class="fas fa-window-close"></i></button>
   </span>
 </div>
 
 
-<div *ngIf="showSummary" class="summary-container">
+<div *ngIf="showSummary" class="summary-container" [style]="homeService.language === 0 ? 'right: 2%' : 'left: 2%'">
   <ul *ngFor="let key of keys(); let co = index">
     {{key}}
     <li tabindex="{{co + 1}}" *ngFor="let bookmark of data.modalData.bookmarks[key]" (click)="goToPage(bookmark.page)">

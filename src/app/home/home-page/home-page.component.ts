@@ -50,6 +50,7 @@ export class HomePageComponent implements OnInit {
 
     if (paramMap.has('language')) {
       this.language = paramMap.get('language') === 'ar' ? 0 : 1;
+      this.homeService.language = this.language;
     }
   }
 

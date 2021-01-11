@@ -67,6 +67,7 @@ h3 {
   width: 100%;
   height: 95%;
   background-color: lavender;
+  padding: 0px 8px 0px 8px;
 }
 
 .login-box {
@@ -74,10 +75,6 @@ h3 {
   padding: 1%;
   width: 512px;
   /*height: 50%;*/
-}
-
-form > input {
-  margin-bottom: 1px;
 }
 
 .row > div {

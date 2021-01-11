@@ -31,7 +31,7 @@ export class BookModalComponent implements OnInit {
   currentPage: number;
   constructor(public dialogRef: MatDialogRef<BookModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private homeService: HomeService) { }
+              public homeService: HomeService) { }
 
   ngOnInit(): void {
     this.nextPage = this.data.startPage > 0 ? this.data.startPage : this.nextPage;

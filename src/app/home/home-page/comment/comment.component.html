@@ -1,14 +1,16 @@
-<div class="user-comment">
+<div class="user-comment" [style]="homeService.language === 0 ? 'flex-direction: row-reverse' : ''">
   <div style="flex-grow: 0; align-self: center">
     <i><img src="{{'data:image/jpg;base64,' + homeService.userProfile.userProfileImage}}"></i>
   </div>
 
   <div style="flex-grow: 8;">
-    <mat-form-field>
+    <mat-form-field [style]="homeService.language === 0 ? 'text-align: right' : '' ">
       <textarea tabindex="{{index}}"
                 [formControl]="input"
-                matInput id="input-user-comment"
+                matInput
+                id="input-user-comment"
                 type="text"
+                [rows]="3"
                 placeholder="question:">
       </textarea>
     </mat-form-field>
@@ -26,16 +28,17 @@
 </div>
 
 <div *ngFor="let comment of comments; let co = index">
-  <div class="fid-comment">
-    <span *ngIf="!comment.userProfile.userProfileImage">
+  <div class="fid-comment" [style]="homeService.language === 0 ? 'flex-direction: row-reverse' : '' ">
+    <span *ngIf="!comment.userProfile.userProfileImage" style="flex-grow: 0">
       <i class="fas fa-user-circle"></i>
     </span>
 
-    <span *ngIf="comment.userProfile.userProfileImage">
+    <span *ngIf="comment.userProfile.userProfileImage" style="flex-grow: 0">
       <i><img src="{{'data:image/jpg;base64,' + comment.userProfile.userProfileImage}}"></i>
     </span>
 
     <span class="badge"
+          [style]="homeService.language === 0 ? 'margin-right: 6px' : 'margin-left: 6px' "
           [class.badge-dark]="comment.badge === 'badge-dark' "
           [class.badge-light]="comment.badge === 'badge-light' ">
       <strong>{{comment.userProfile.username}}</strong> <br >

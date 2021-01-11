@@ -33,21 +33,24 @@
         </span>
       </div>
 
-      <input type="text"
-             class="form-control"
-             [formControl]="pseudoName"
-             placeholder="{{values.login_pseudonym_placeholder}}"
-             title="{{values.login_pseudonym_title}}"
-             [ngClass]="loginService.language === 0 ? 'input_0' : '' "
-      >
-      <input type="password"
-             class="form-control"
-             [formControl]="password"
-             placeholder="{{values.login_password_placeholder}}"
-             title="{{values.login_password_title}}"
-             [ngClass]="loginService.language === 0 ? 'input_0' : '' "
-      >
+      <mat-form-field [ngClass]="loginService.language === 0 ? 'input_0' : '' " style="display: block">
+        <input type="text"
+               matInput
+               [formControl]="pseudoName"
+               placeholder="{{values.login_pseudonym_placeholder}}"
+               title="{{values.login_pseudonym_title}}">
+      </mat-form-field>
+      <mat-form-field [ngClass]="loginService.language === 0 ? 'input_0' : '' " style="display: block">
+        <input type="password"
+               matInput
+               [formControl]="password"
+               placeholder="{{values.login_password_placeholder}}"
+               title="{{values.login_password_title}}">
+      </mat-form-field>
+
       <button type="button"
+              mat-flat-button
+              color="basic"
               class="btn btn-success btn-block"
               (click)="onEnter()"
               title="{{values.login_enter_title}}"

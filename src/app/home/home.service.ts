@@ -13,6 +13,7 @@ import {Comment} from './models/Comment';
 export class HomeService{
   private user: UserProfile = undefined;
   private favorites: Book[] = undefined;
+  public language: number;
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
