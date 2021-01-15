@@ -1,9 +1,12 @@
 .user-comment {
   border-top: solid 1px lightgray;
-  padding: 8px 4px 24px 4px;
+  padding: 8px 4px 0px 4px;
   display: flex;
   align-items: stretch;
   width: 100%;
+
+  /*fix padding bottom for textarea due of material dessing */
+  margin-bottom: -16px;
 }
 
 .user-comment > div {
@@ -14,7 +17,7 @@
   vertical-align: sub;
 }
 
-i > img {
+.user-comment i > img, .fid-comment i > img, .fid-reply i > img {
   border-radius: 32px;
   width: 37px;
   height: 37px;
@@ -24,23 +27,32 @@ mat-form-field {
   width: 100%;
 }
 
-.fid-comment {
+.fid-comment, .fid-reply {
   position: relative;
   width: inherit;
   display: flex;
   max-width: 100%;
-  margin: 0px 8px 24px 8px;
+  margin: 0px 8px 0px 8px;
   z-index: 50;
+  outline: none;
 }
 
-.fid-comment > span:first-child {
+textarea {
+  font-size: 0.8em;
+}
+
+.fid-comment {
+  margin-top: 24px !important;
+}
+
+.fid-comment > span:first-child, .fid-reply > span:first-child {
   font-size: 38px;
   height: 48px;
   z-index: 50;
 }
 
-.fid-comment > span:nth-child(2) {
-  white-space: normal;
+.fid-comment > span:nth-child(2), .fid-reply > span:nth-child(2) {
+  white-space: pre-line;
   z-index: 50;
   text-align: left;
   border-radius: 8px;
@@ -48,10 +60,54 @@ mat-form-field {
   margin-top: 4px;
 }
 
-.fid-comment i {
+.fid-comment span:nth-child(2) > strong, .fid-reply span:nth-child(2) > strong{
+  display: block;
+  padding-bottom: 6px;
+}
+
+.fid-comment i, .fid-reply i {
   vertical-align: text-top;
 }
 
-.fid-comment i > img {
+.fid-comment i > img,  .fid-reply i > img{
   vertical-align: super;
+}
+
+.fid-interaction {
+  margin: 0px 64px 0px 64px;
+  line-height: 1;
+  outline: none;
+  color: dimgray;
+  max-width: 100%;
+}
+
+.fid-interaction-extend {
+}
+
+.fid-interaction > span:first-child {
+  font-size: 0.75em;
+}
+
+.fid-interaction > span:nth-child(2) {
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 16px;
+  margin: 0px 8px 0px 8px;
+}
+
+.comment-reply-box {
+  display: none;
+  align-items: stretch;
+  margin-top: 2px;
+  /*margin-bottom: 24px;*/
+}
+
+.comment-reply-box > div {
+  margin: 0px 4px;
+}
+
+.comment-reply-box i > img {
+  border-radius: 32px;
+  width: 24px;
+  height: 24px;
 }

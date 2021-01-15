@@ -8,6 +8,7 @@ import {BookChartModalData} from './models/Bookmarks';
 import {SearchableSummaryItem} from './models/SearchableSummaryItem';
 import {UserProfile} from './models/UserProfile';
 import {Comment} from './models/Comment';
+import {VALUES_AR, VALUES_EN} from '../translation/search';
 
 @Injectable()
 export class HomeService{
@@ -161,6 +162,23 @@ export class HomeService{
     );
   }
 
+  addCommentToParent(comment: Comment, parentId: number): Observable<HttpResponse<Comment[]>> {
+    return this.httpClient.post<Comment[]>(
+      backendServer.dns + `book/comment/addTo/${parentId}`,
+      comment,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          content: 'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        observe: 'response',
+        responseType: 'json'
+      }
+    );
+  }
+
   logout(): void {
     localStorage.removeItem('jwt');
     this.router.navigateByUrl('/'); // absolute
@@ -168,5 +186,9 @@ export class HomeService{
 
   getJwt(): string {
     return localStorage.getItem('jwt');
+  }
+
+  public get values(): any {
+    return this.language === 1 ? VALUES_EN : VALUES_AR;
   }
 }

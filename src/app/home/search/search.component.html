@@ -23,13 +23,13 @@
       type="text"
       class="form-control form-control-sm"
       [ngClass]="language === 0 ? 'input-to-right' : 'input-to-left' "
-      placeholder="{{values.search_input_placeholder}}"
-      title="{{values.search_input_title}}"
+      placeholder="{{homeService.values.search_input_placeholder}}"
+      title="{{homeService.values.search_input_title}}"
       autofocus
     />
     <a tabindex="4" routerLink="/home" style="flex-grow: 2; line-height: 32px" href="#"
-      title="{{values.search_cancel_title}}">
-      {{values.search_cancel}}
+      title="{{homeService.values.search_cancel_title}}">
+      {{homeService.values.search_cancel}}
     </a>
   </div>
   <div #autoComplete class="autocomplete-items">
@@ -49,7 +49,7 @@
     </div>
     <div *ngIf="items.length === maxResultSet"
          [ngClass]="language === 0 ? 'to-right' : 'to-left' ">
-      <a href="#">{{values.search_see_more}} <strong> {{searchInput.value}} </strong></a>
+      <a href="#">{{homeService.values.search_see_more}} <strong> {{searchInput.value}} </strong></a>
     </div>
   </div>
 

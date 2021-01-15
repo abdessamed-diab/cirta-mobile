@@ -2,6 +2,7 @@ import {UserProfile} from './UserProfile';
 import {Book} from './Book';
 
 export interface Comment {
+  id: number;
   userProfile: UserProfile;
   book: Book;
   pageNumber: number;
@@ -9,6 +10,8 @@ export interface Comment {
   publishedAt: string;
   replies: Comment[];
   badge: string;
+
+  temp: boolean;
 }
 
 // badge-primary

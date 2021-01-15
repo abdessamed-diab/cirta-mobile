@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
   }
 
   onFacebookSignIn(form: HTMLFormElement): void {
-    this.loading = true;
     this.pseudoName.setValue('');
     this.password.setValue('');
     form.submit();

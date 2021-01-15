@@ -11,8 +11,8 @@
                 id="input-user-comment"
                 type="text"
                 [rows]="3"
-                placeholder="question:">
-      </textarea>
+                placeholder="{{homeService.values.comment_question}}"
+      ></textarea>
     </mat-form-field>
   </div>
 
@@ -22,13 +22,14 @@
         (click)="postComment()"
         mat-stroked-button
         color="#0f6674">
-        Post
+        {{homeService.values.comment_post_comment}}
       </button>
   </div>
 </div>
 
 <div *ngFor="let comment of comments; let co = index">
   <div class="fid-comment" [style]="homeService.language === 0 ? 'flex-direction: row-reverse' : '' ">
+
     <span *ngIf="!comment.userProfile.userProfileImage" style="flex-grow: 0">
       <i class="fas fa-user-circle"></i>
     </span>
@@ -38,12 +39,84 @@
     </span>
 
     <span class="badge"
-          [style]="homeService.language === 0 ? 'margin-right: 6px' : 'margin-left: 6px' "
-          [class.badge-dark]="comment.badge === 'badge-dark' "
-          [class.badge-light]="comment.badge === 'badge-light' ">
-      <strong>{{comment.userProfile.username}}</strong> <br >
+          tabindex="{{ (1 + index) + (co * 5) }}"
+          [style]="homeService.language === 0 ? 'margin-right: 6px; text-align: right' : 'margin-left: 6px' "
+          [class.badge-dark]="homeService.userProfile.username === comment.userProfile.username"
+          [class.badge-primary]="homeService.userProfile.username !== comment.userProfile.username"
+    >
+      <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{comment.userProfile.username}}</strong>
       {{comment.content}}
     </span>
 
   </div>
+
+  <div class="fid-interaction"
+       [class.fid-interaction-extend]="comment.replies === undefined"
+       [style]="homeService.language === 0 ? 'direction: rtl; text-align: right' : ''">
+    <span style="width: 50%">{{comment.publishedAt}}</span>
+    <span
+      tabindex="{{ (2 + index) + (co * 5) }}"
+      (click)="showReplyBox(replyBox, comment)">
+      {{homeService.values.comment_reply}}
+    </span>
+  </div>
+
+  <div #replyBox class="comment-reply-box" [style]="homeService.language === 0 ? 'direction: rtl; text-align: right; padding-right: 32px' : 'padding-left: 32px' ">
+
+    <div *ngIf="homeService.userProfile.userProfileImage" style="flex-grow: 0; align-self: center">
+      <i><img src="{{'data:image/jpg;base64,' + homeService.userProfile.userProfileImage}}"></i>
+    </div>
+
+    <div style="flex-grow: 8;">
+      <mat-form-field [style]="homeService.language === 0 ? 'text-align: right' : '' ">
+        <textarea
+          matInput
+          #replyInput
+          tabindex="{{ (3 + index) + (co * 5) }}"
+          type="text"
+          placeholder="{{homeService.values.comment_write_reply}}"
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <div style="flex-grow: 0; align-self: center">
+      <button
+        tabindex="{{ (4 + index) + (co * 5) }}"
+        (click)="postReply(comment, replyInput, replyBox)"
+        mat-stroked-button
+        color="#0f6674">
+        {{homeService.values.comment_post_reply}}
+      </button>
+    </div>
+
+  </div>
+
+
+  <!--Replies-->
+  <div *ngFor="let reply of comment.replies">
+    <div *ngIf="!reply.temp"
+      class="fid-reply"
+      [style]="homeService.language === 0 ? 'flex-direction: row-reverse; margin-right: 32px' : 'margin-left: 32px' ">
+
+      <span *ngIf="!reply.userProfile.userProfileImage" style="flex-grow: 0">
+        <i class="fas fa-user-circle"></i>
+      </span>
+
+      <span *ngIf="reply.userProfile.userProfileImage" style="flex-grow: 0">
+        <i><img src="{{'data:image/jpg;base64,' + reply.userProfile.userProfileImage}}"></i>
+      </span>
+
+      <span class="badge"
+              tabindex="{{ (1 + index) + (co * 5) }}"
+              [style]="homeService.language === 0 ? 'margin-right: 6px; text-align: right' : 'margin-left: 6px' "
+              [class.badge-dark]="homeService.userProfile.username === reply.userProfile.username"
+              [class.badge-primary]="homeService.userProfile.username !== reply.userProfile.username"
+      >
+        <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{reply.userProfile.username}}</strong>
+          {{reply.content}}
+      </span>
+
+    </div>
+  </div>
+
 </div>

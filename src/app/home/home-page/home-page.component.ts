@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HomeService} from '../home.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VALUES_AR, VALUES_EN} from '../../translation/en';
 import {HttpResponse} from '@angular/common/http';
 import {Book} from '../models/Book';
 import {UserProfile} from '../models/UserProfile';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'rahba-home-page',
@@ -14,7 +15,8 @@ import {UserProfile} from '../models/UserProfile';
 export class HomePageComponent implements OnInit {
   public language =  1;
   books: Book[];
-  constructor(public homeService: HomeService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public homeService: HomeService, private activatedRoute: ActivatedRoute,
+              private router: Router, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
     this.initPropsFromUrlParams();
@@ -52,6 +54,8 @@ export class HomePageComponent implements OnInit {
       this.language = paramMap.get('language') === 'ar' ? 0 : 1;
       this.homeService.language = this.language;
     }
+
+    this.document.documentElement.lang = this.language === 0 ? 'ar' : 'en';
   }
 
   public get values(): any {

@@ -103,8 +103,4 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  public get values(): any {
-    return this.language === 1 ? VALUES_EN : VALUES_AR;
-  }
-
 }
