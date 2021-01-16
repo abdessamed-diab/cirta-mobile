@@ -44,44 +44,40 @@ export class CommentComponent implements OnInit {
         publishedAt: '',
         badge: 'badge-dark',
         replies: [],
-        temp: true,
+
+        tempId: new Date().getTime(),
       };
+
+      this.comments.unshift(comment);
 
       this.homeService.postComment(this.book.id, comment).subscribe(
         (response: HttpResponse<Comment>) => {
-          this.input.setValue('');
-          this.comments.unshift(response.body);
-          console.log('posted comment: ', response.body) ;
+            this.input.setValue('');
+            this.comments.forEach(
+              (reference, index, tab) => {
+                if (reference.tempId === response.body.tempId) {
+                  tab[index] = response.body;
+                }
+              }
+            );
           },
-      (error) => {console.log('post comment error: ', error) ; }
+      (error) => {
+          console.log('post comment error: ', error) ;
+          if (error.status === 401) {
+            this.homeService.logout();
+          }
+        }
       );
     }
 
   }
 
   showReplyBox(element: HTMLDivElement, parent: Comment ): void {
-    this.addReplyToComment(parent);
-    element.style.display = 'flex';
-  }
-
-  private addReplyToComment(comment: Comment): void {
-    if (comment.replies === undefined) {
-      comment.replies = [];
+    if (parent.replies === undefined) {
+      parent.replies = [];
     }
 
-    const newComment = {
-      id: undefined,
-      userProfile: this.homeService.userProfile,
-      book: this.book,
-      pageNumber: this.currentPage,
-      content: this.input.value,
-      publishedAt: '',
-      badge: 'badge-dark',
-      replies: [],
-      temp: true,
-    };
-
-    comment.replies.unshift(newComment);
+    element.style.display = 'flex';
   }
 
   postReply(parent: Comment, textarea: HTMLTextAreaElement, replyBoxElement: HTMLDivElement): void {
@@ -99,21 +95,32 @@ export class CommentComponent implements OnInit {
       publishedAt: '',
       badge: 'badge-dark',
       replies: undefined,
-      temp: true,
+
+      tempId: new Date().getTime(),
     };
+
+    if (!parent.replies || parent.replies === undefined) {
+      parent.replies = [];
+    }
+
+    parent.replies.unshift(newComment);
+    replyBoxElement.style.display = 'none';
+    textarea.value = '';
 
     this.homeService.addCommentToParent(newComment, parent.id).subscribe(
       (response: HttpResponse<Comment[]>) => {
         parent.replies = response.body;
-        replyBoxElement.style.display = 'none';
-        textarea.value = '';
       },
       (error) => {
         // TODO you should show this div element in RED.
         replyBoxElement.remove();
         console.log(error);
+        if (error.status === 401) {
+          this.homeService.logout();
+        }
       }
     );
+
   }
 
 }

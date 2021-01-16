@@ -11,7 +11,7 @@ export interface Comment {
   replies: Comment[];
   badge: string;
 
-  temp: boolean;
+  tempId: number;
 }
 
 // badge-primary

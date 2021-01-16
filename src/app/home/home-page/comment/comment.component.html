@@ -41,8 +41,8 @@
     <span class="badge"
           tabindex="{{ (1 + index) + (co * 5) }}"
           [style]="homeService.language === 0 ? 'margin-right: 6px; text-align: right' : 'margin-left: 6px' "
-          [class.badge-dark]="homeService.userProfile.username === comment.userProfile.username"
-          [class.badge-primary]="homeService.userProfile.username !== comment.userProfile.username"
+          [class.badge-secondary]="homeService.userProfile.username === comment.userProfile.username"
+          [class.badge-dark]="homeService.userProfile.username !== comment.userProfile.username"
     >
       <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{comment.userProfile.username}}</strong>
       {{comment.content}}
@@ -94,7 +94,7 @@
 
   <!--Replies-->
   <div *ngFor="let reply of comment.replies">
-    <div *ngIf="!reply.temp"
+    <div
       class="fid-reply"
       [style]="homeService.language === 0 ? 'flex-direction: row-reverse; margin-right: 32px' : 'margin-left: 32px' ">
 
@@ -109,8 +109,8 @@
       <span class="badge"
               tabindex="{{ (1 + index) + (co * 5) }}"
               [style]="homeService.language === 0 ? 'margin-right: 6px; text-align: right' : 'margin-left: 6px' "
-              [class.badge-dark]="homeService.userProfile.username === reply.userProfile.username"
-              [class.badge-primary]="homeService.userProfile.username !== reply.userProfile.username"
+              [class.badge-secondary]="homeService.userProfile.username === reply.userProfile.username"
+              [class.badge-dark]="homeService.userProfile.username !== reply.userProfile.username"
       >
         <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{reply.userProfile.username}}</strong>
           {{reply.content}}
