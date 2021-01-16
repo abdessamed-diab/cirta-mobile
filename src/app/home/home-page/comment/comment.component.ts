@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Comment} from '../../models/Comment';
 import {FormControl} from '@angular/forms';
 import {HomeService} from '../../home.service';
@@ -27,6 +27,9 @@ export class CommentComponent implements OnInit {
 
   @Input()
   comments: Comment[] = [];
+
+  @Output()
+  callLogout = new EventEmitter<boolean>();
 
   constructor(public homeService: HomeService) { }
 
@@ -64,7 +67,7 @@ export class CommentComponent implements OnInit {
       (error) => {
           console.log('post comment error: ', error) ;
           if (error.status === 401) {
-            this.homeService.logout();
+            this.callLogout.emit(true);
           }
         }
       );
@@ -116,7 +119,7 @@ export class CommentComponent implements OnInit {
         replyBoxElement.remove();
         console.log(error);
         if (error.status === 401) {
-          this.homeService.logout();
+          this.callLogout.emit(true);
         }
       }
     );

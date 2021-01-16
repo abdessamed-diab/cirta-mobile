@@ -97,7 +97,7 @@ export class BookModalComponent implements OnInit {
     }
   }
 
-  onNoClick(): void {
+  onCloseModal(): void {
     this.dialogRef.close();
   }
 
@@ -115,6 +115,14 @@ export class BookModalComponent implements OnInit {
     // this.showSummary = false;
     this.nextPage = page + 1; // check why we should add this 1!
     this.updateArrayBuffer();
+  }
+
+  onCallLogout(callLogout: boolean): void {
+    if (callLogout) {
+      console.log('callLogout event is fired.');
+      this.onCloseModal();
+      this.homeService.logout();
+    }
   }
 
 }
