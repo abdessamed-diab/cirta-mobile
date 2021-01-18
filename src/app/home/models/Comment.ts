@@ -1,10 +1,9 @@
 import {UserProfile} from './UserProfile';
-import {Book} from './Book';
 
 export interface Comment {
   id: number;
   userProfile: UserProfile;
-  book: Book;
+  bookId: number;
   pageNumber: number;
   content: string;
   publishedAt: string;

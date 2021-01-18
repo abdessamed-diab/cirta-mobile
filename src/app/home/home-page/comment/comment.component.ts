@@ -41,7 +41,7 @@ export class CommentComponent implements OnInit {
       const comment = {
         id: undefined,
         userProfile: this.homeService.userProfile,
-        book: this.book,
+        bookId: this.book.id,
         pageNumber: this.currentPage,
         content: this.input.value,
         publishedAt: '',
@@ -92,7 +92,7 @@ export class CommentComponent implements OnInit {
     const newComment = {
       id: undefined,
       userProfile: this.homeService.userProfile,
-      book: this.book,
+      bookId: this.book.id,
       pageNumber: parent.pageNumber,
       content: textarea.value,
       publishedAt: '',
