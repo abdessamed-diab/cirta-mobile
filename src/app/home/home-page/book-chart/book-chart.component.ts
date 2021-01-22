@@ -8,13 +8,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {BookModalComponent} from './book-modal/book-modal.component';
 import {BookChartModalData} from '../../models/Bookmarks';
 
-interface DialogData {
-  book: Book;
-  cadence: number;
-  modalData: BookChartModalData;
-  startPage: number;
-}
-
 @Component({
   selector: 'rahba-book-chart',
   templateUrl: './book-chart.component.html',

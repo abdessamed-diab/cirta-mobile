@@ -11,6 +11,7 @@ export interface Comment {
   badge: string;
 
   tempId: number;
+  persistedAt: string;
 }
 
 // badge-primary

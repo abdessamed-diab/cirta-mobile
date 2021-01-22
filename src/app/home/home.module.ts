@@ -14,9 +14,11 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {SearchComponent} from './search/search.component';
 import { SummaryItemTitlePipe } from './search/summary-item-title/summary-item-title.pipe';
 import { CommentComponent } from './home-page/comment/comment.component';
+import { NotificationComponent } from './home-page/notification/notification.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
-  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent, SummaryItemTitlePipe, CommentComponent],
+  declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent, SummaryItemTitlePipe, CommentComponent, NotificationComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -25,7 +27,8 @@ import { CommentComponent } from './home-page/comment/comment.component';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    PdfViewerModule
+    PdfViewerModule,
+    MatBadgeModule
   ],
   bootstrap: [HomePageComponent]
 })

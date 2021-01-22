@@ -6,6 +6,7 @@ import {HttpResponse} from '@angular/common/http';
 import {Book} from '../models/Book';
 import {UserProfile} from '../models/UserProfile';
 import {DOCUMENT} from '@angular/common';
+import {Notification} from './notification/Notification';
 
 @Component({
   selector: 'rahba-home-page',
@@ -15,8 +16,12 @@ import {DOCUMENT} from '@angular/common';
 export class HomePageComponent implements OnInit {
   public language =  1;
   books: Book[];
-  constructor(public homeService: HomeService, private activatedRoute: ActivatedRoute,
-              private router: Router, @Inject(DOCUMENT) private document: Document) { }
+  notifications: Notification[] = [];
+
+  constructor(public homeService: HomeService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
     this.initPropsFromUrlParams();
@@ -56,6 +61,14 @@ export class HomePageComponent implements OnInit {
     }
 
     this.document.documentElement.lang = this.language === 0 ? 'ar' : 'en';
+  }
+
+  containsUncheckedNotifications(): boolean{
+    const unchecked = this.notifications.find(
+      (item, index) => !item.checked
+    );
+
+    return unchecked !== undefined;
   }
 
   public get values(): any {

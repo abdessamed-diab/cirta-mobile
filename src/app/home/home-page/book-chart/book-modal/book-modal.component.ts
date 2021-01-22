@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Book} from '../../../models/Book';
 import {HomeService} from '../../../home.service';
@@ -6,6 +6,7 @@ import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {PDFDocumentProxy} from 'ng2-pdf-viewer';
 import {BookChartModalData} from '../../../models/Bookmarks';
 import {Comment} from '../../../models/Comment';
+import {CommentComponent} from '../../comment/comment.component';
 
 interface DialogData {
   book: Book;
@@ -29,6 +30,10 @@ export class BookModalComponent implements OnInit {
   showSummary = false;
   pageComments: Comment[] = [];
   currentPage: number;
+
+  @ViewChild(CommentComponent)
+  commentCmp: CommentComponent;
+
   constructor(public dialogRef: MatDialogRef<BookModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               public homeService: HomeService) { }
@@ -98,6 +103,7 @@ export class BookModalComponent implements OnInit {
   }
 
   onCloseModal(): void {
+    this.commentCmp.closeFetchEvent(undefined);
     this.dialogRef.close();
   }
 

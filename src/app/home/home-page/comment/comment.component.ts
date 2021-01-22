@@ -4,6 +4,8 @@ import {FormControl} from '@angular/forms';
 import {HomeService} from '../../home.service';
 import {Book} from '../../models/Book';
 import {HttpResponse} from '@angular/common/http';
+import {backendServer} from '../../../../environments/environment';
+import {CommentHelper} from './CommentHelper';
 
 @Component({
   selector: 'rahba-comment',
@@ -31,6 +33,8 @@ export class CommentComponent implements OnInit {
   @Output()
   callLogout = new EventEmitter<boolean>();
 
+  sources: CommentHelper[] = [];
+
   constructor(public homeService: HomeService) { }
 
   ngOnInit(): void {
@@ -49,6 +53,7 @@ export class CommentComponent implements OnInit {
         replies: [],
 
         tempId: new Date().getTime(),
+        persistedAt: '',
       };
 
       this.comments.unshift(comment);
@@ -67,6 +72,7 @@ export class CommentComponent implements OnInit {
       (error) => {
           console.log('post comment error: ', error) ;
           if (error.status === 401) {
+            this.closeFetchEvent(undefined);
             this.callLogout.emit(true);
           }
         }
@@ -81,11 +87,43 @@ export class CommentComponent implements OnInit {
     }
 
     element.style.display = 'flex';
+    this.fetchEvent(parent, this.homeService.language);
+  }
+
+  private fetchEvent(parent: Comment, language: number): void {
+    const url = parent.replies.length > 0
+      ? `api/${parent.replies[0].id}/fetchNewChildren?language=${language}`
+      : `api/${parent.id}/fetchNewChildren?language=${language}`;
+
+    const source = new EventSource(backendServer.dns + url , {withCredentials: false});
+    this.sources.unshift({parent, source} );
+
+    source.addEventListener('message',
+      (message: MessageEvent) => {
+        const newestChildComments = JSON.parse(message.data);
+        if (newestChildComments.length > 0) {
+          for (let co = newestChildComments.length - 1 ; co >= 0 ; co -- ) {
+
+            const existed = parent.replies.find(
+              (item, index) => item.id === newestChildComments[co].id
+            );
+
+            if (!existed) {
+              newestChildComments[co].badge = 'badge-info';
+              parent.replies.unshift(newestChildComments[co]);
+            }
+
+          }
+        }
+
+      }
+    );
   }
 
   postReply(parent: Comment, textarea: HTMLTextAreaElement, replyBoxElement: HTMLDivElement): void {
     if (!textarea.value || textarea.value.length < 1 ) {
       replyBoxElement.style.display = 'none';
+      this.closeFetchEvent(parent);
       return;
     }
 
@@ -100,6 +138,7 @@ export class CommentComponent implements OnInit {
       replies: undefined,
 
       tempId: new Date().getTime(),
+      persistedAt: '',
     };
 
     if (!parent.replies || parent.replies === undefined) {
@@ -108,6 +147,7 @@ export class CommentComponent implements OnInit {
 
     parent.replies.unshift(newComment);
     replyBoxElement.style.display = 'none';
+    this.closeFetchEvent(parent);
     textarea.value = '';
 
     this.homeService.addCommentToParent(newComment, parent.id).subscribe(
@@ -119,11 +159,27 @@ export class CommentComponent implements OnInit {
         replyBoxElement.remove();
         console.log(error);
         if (error.status === 401) {
+          this.closeFetchEvent(undefined);
           this.callLogout.emit(true);
         }
       }
     );
 
+  }
+
+
+  public closeFetchEvent(parent: Comment): void {
+    if (parent) {
+      this.sources.filter(
+        (item, index) => item.parent.id === parent.id
+      ).forEach(
+        (item, index) => item.source.close()
+      );
+    } else {
+      this.sources.forEach(
+        (item, index) => item.source.close()
+      );
+    }
   }
 
 }

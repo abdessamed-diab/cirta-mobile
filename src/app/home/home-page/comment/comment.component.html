@@ -41,8 +41,8 @@
     <span class="badge"
           tabindex="{{ (1 + index) + (co * 5) }}"
           [style]="homeService.language === 0 ? 'margin-right: 6px; text-align: right' : 'margin-left: 6px' "
-          [class.badge-secondary]="homeService.userProfile.username === comment.userProfile.username"
-          [class.badge-dark]="homeService.userProfile.username !== comment.userProfile.username"
+          [class.badge-info]="comment.badge    === 'badge-info' "
+          [class.badge-dark]="comment.badge    === 'badge-dark' "
     >
       <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{comment.userProfile.username}}</strong>
       {{comment.content}}
@@ -109,8 +109,8 @@
       <span class="badge"
               tabindex="{{ (1 + index) + (co * 5) }}"
               [style]="homeService.language === 0 ? 'margin-right: 6px; text-align: right' : 'margin-left: 6px' "
-              [class.badge-secondary]="homeService.userProfile.username === reply.userProfile.username"
-              [class.badge-dark]="homeService.userProfile.username !== reply.userProfile.username"
+              [class.badge-info]="reply.badge    === 'badge-info' "
+              [class.badge-dark]="reply.badge    === 'badge-dark' "
       >
         <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{reply.userProfile.username}}</strong>
           {{reply.content}}
