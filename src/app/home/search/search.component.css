@@ -31,7 +31,7 @@
 
 .input-flex-container > input {
   border-radius: 32px;
-  background-color: rgba(10, 30, 70, 0.1);
+  background-color: rgba(10, 30, 70, 0.05);
 }
 
 .input-to-right {
@@ -82,9 +82,8 @@
   height: 32px;
   margin: 0px 0px;
   z-index: 100;
-  background-color: whitesmoke;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: aliceblue;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .autocomplete-items > div.to-right {
@@ -101,7 +100,7 @@
 }
 
 .autocomplete-items > div:hover {
-  background-color: floralwhite;
+  background-color: rgba(10, 10 , 80 , 0.025);
 }
 
 .autocomplete-items > div:first-child {
@@ -119,7 +118,7 @@
   color: #0f6674;
   white-space: nowrap;
   display: block;
-  max-height: 32px;
+  max-height: 48px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -144,6 +143,6 @@ span {
 }
 
 span:focus {
-  background-color: floralwhite;
+  background-color: rgba(10, 30, 70, 0.025);
   outline: none;
 }
