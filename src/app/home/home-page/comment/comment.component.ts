@@ -53,7 +53,6 @@ export class CommentComponent implements OnInit {
         replies: [],
 
         tempId: new Date().getTime(),
-        persistedAt: '',
       };
 
       this.comments.unshift(comment);
@@ -138,7 +137,6 @@ export class CommentComponent implements OnInit {
       replies: undefined,
 
       tempId: new Date().getTime(),
-      persistedAt: '',
     };
 
     if (!parent.replies || parent.replies === undefined) {

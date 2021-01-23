@@ -1,1 +1,35 @@
-<p>notification works!</p>
+<div class="container-fluid">
+  <h6>Notifications</h6>
+</div>
+<div class="notifications-container">
+  <div *ngFor="let notification of notifications; let co = index"
+       class="notification-row"
+       [style]="notification.checked ? 'background-color: lightBlue' : 'background-color: lightCyan' "
+  >
+    <div style="flex-grow: 0">
+      <span *ngIf="!notification.reply.userProfile.userProfileImage">
+        <i class="fas fa-user-circle"></i>
+      </span>
+
+      <span *ngIf="notification.reply.userProfile.userProfileImage">
+        <i><img src="{{'data:image/jpg;base64,' + notification.reply.userProfile.userProfileImage}}"></i>
+      </span>
+    </div>
+
+    <div class="notification-content" style="flex-grow: 2">
+      <span><strong>{{notification.reply.userProfile.username}}</strong> {{title(notification.type)}}</span>
+      <span style="vertical-align: top">{{ '\"' + notification.reply.content + '\"' }}</span>
+      <span> <i class="fas fa-users"></i> {{notification.reply.publishedAt}}</span>
+    </div>
+
+    <div style="flex-grow: 0">
+      <span *ngIf="!notification.book.coverPhotoBase64">
+        <i style="font-size: 3.5em;" class="fas fa-book"></i>
+      </span>
+
+      <span *ngIf="notification.book.coverPhotoBase64">
+        <i><img src="{{'data:image/jpg;base64,' + notification.book.coverPhotoBase64}}"></i>
+      </span>
+    </div>
+  </div>
+</div>

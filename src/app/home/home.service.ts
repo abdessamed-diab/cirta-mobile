@@ -9,12 +9,14 @@ import {SearchableSummaryItem} from './models/SearchableSummaryItem';
 import {UserProfile} from './models/UserProfile';
 import {Comment} from './models/Comment';
 import {VALUES_AR, VALUES_EN} from '../translation/search';
+import {Notification} from './home-page/notification/Notification';
 
 @Injectable()
 export class HomeService{
   private user: UserProfile = undefined;
   private favorites: Book[] = undefined;
   public language: number;
+  public totalNotifications = 0;
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
@@ -166,6 +168,22 @@ export class HomeService{
     return this.httpClient.post<Comment[]>(
       backendServer.dns + `book/comment/addTo/${parentId}`,
       comment,
+      {
+        headers: {
+          Authorization: `Bearer ${this.getJwt()}`,
+          content: 'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        observe: 'response',
+        responseType: 'json'
+      }
+    );
+  }
+
+  fetchNotification(): Observable<HttpResponse<Notification[]>> {
+    return this.httpClient.get<Notification[]>(
+      backendServer.dns + `search/notifications/${this.userProfile.username}`,
       {
         headers: {
           Authorization: `Bearer ${this.getJwt()}`,

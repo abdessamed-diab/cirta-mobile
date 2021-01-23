@@ -25,7 +25,3 @@ ul.navbar-nav {
   flex-direction: row;
   padding-right: 0px;
 }
-
-.custom-badge-info .mat-badge-content  {
-  background-color: lightseagreen;
-}

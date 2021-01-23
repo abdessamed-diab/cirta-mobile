@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnDestroy, OnInit} from '@angular/core';
 import {HomeService} from '../home.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VALUES_AR, VALUES_EN} from '../../translation/en';
@@ -7,16 +7,19 @@ import {Book} from '../models/Book';
 import {UserProfile} from '../models/UserProfile';
 import {DOCUMENT} from '@angular/common';
 import {Notification} from './notification/Notification';
+import {backendServer} from '../../../environments/environment';
 
 @Component({
   selector: 'rahba-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   public language =  1;
   books: Book[];
   notifications: Notification[] = [];
+  showNotificationChildView = false;
+  source: EventSource;
 
   constructor(public homeService: HomeService,
               private activatedRoute: ActivatedRoute,
@@ -32,13 +35,38 @@ export class HomePageComponent implements OnInit {
 
     if (this.homeService.userProfile === undefined) {
       this.homeService.fetchUserProfile().subscribe(
-        (response: HttpResponse<UserProfile>) => {this.homeService.userProfile = response.body; },
+        (response: HttpResponse<UserProfile>) => {
+            this.homeService.userProfile = response.body;
+          },
         (error) => {
           console.log('cannot fetch facebook user profile: ', error);
           this.homeService.userProfile = {username: 'Rahba', userProfileImage: ''}; // defaults
-        }
+        }, () => {this.fetchTotalNotifications(); }
       );
+    } else {
+      this.fetchTotalNotifications();
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.source) {
+      this.source.close();
+    }
+  }
+
+  private fetchTotalNotifications(): void {
+    const url = `api/notifications/${this.homeService.userProfile.username}`;
+    this.source = new EventSource(backendServer.dns + url , {withCredentials: false});
+
+    this.source.addEventListener('message',
+      (message: MessageEvent) => {
+        const total = message.data;
+        if (total) {
+          this.homeService.totalNotifications = total;
+        }
+
+      }
+    );
   }
 
   private loadFavoriteBook(): void {
@@ -61,6 +89,12 @@ export class HomePageComponent implements OnInit {
     }
 
     this.document.documentElement.lang = this.language === 0 ? 'ar' : 'en';
+  }
+
+  notificationChildViewDestroyed(isDestroyed): void{
+    if (isDestroyed) {
+      this.showNotificationChildView = false;
+    }
   }
 
   containsUncheckedNotifications(): boolean{

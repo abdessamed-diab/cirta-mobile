@@ -117,7 +117,11 @@
 
 .autocomplete-items > div:nth-child(11) > a {
   color: #0f6674;
-  white-space: pre-wrap;
+  white-space: nowrap;
+  display: block;
+  max-height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .autocomplete-items > div:nth-child(11):hover {

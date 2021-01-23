@@ -16,20 +16,22 @@ import { SummaryItemTitlePipe } from './search/summary-item-title/summary-item-t
 import { CommentComponent } from './home-page/comment/comment.component';
 import { NotificationComponent } from './home-page/notification/notification.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [HomePageComponent, BookChartComponent, BookModalComponent, SearchComponent, SummaryItemTitlePipe, CommentComponent, NotificationComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    PdfViewerModule,
-    MatBadgeModule
-  ],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        PdfViewerModule,
+        MatBadgeModule,
+        MatIconModule
+    ],
   bootstrap: [HomePageComponent]
 })
 export class HomeModule { }

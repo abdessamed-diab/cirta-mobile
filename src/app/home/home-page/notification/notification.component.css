@@ -1,0 +1,71 @@
+h6 {
+  line-height: 2;
+  margin-bottom: 0px;
+  font-size: 1.1em;
+}
+
+.notifications-container {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  background-color: aliceblue;
+}
+
+.notification-row {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid lightgray;
+}
+
+.notification-row > div {
+  margin: 4px 4px 4px 4px;
+  height: 100%;
+}
+
+.notification-row div:first-child img {
+  border-radius: 32px;
+  width: 37px;
+  height: 37px;
+}
+
+.notification-row div:first-child span > i {
+  font-size: 2.8em;
+  line-height: 1;
+}
+
+.notification-row div:nth-child(3) span  img {
+  max-width: 32px;
+  max-height: 64px;
+}
+
+.notification-content  span > strong {
+  font-size: 1.2em;
+}
+
+.notification-content  span {
+  font-size: 0.8em !important;
+  display: block;
+}
+
+/*TODO check ellipsis does not work!*/
+.notification-content span:nth-child(2) {
+  font-size: 0.9em !important;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 20px;
+}
+
+.notification-content span:nth-child(3) {
+  color: darkgray;
+}
+
+.notification-content span > i {
+  font-size: 0.9em !important;
+  color: black;
+}

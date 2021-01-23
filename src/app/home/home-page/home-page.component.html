@@ -1,33 +1,26 @@
 <!--nav_bar-->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav" [ngClass]="language === 1 ? 'left-to-right' : ''">
-    <li class="nav-item"><a routerLink="/home/{{language === 1 ? 'en' : 'ar'}}"><i class="fa fa-home"></i></a></li>
+    <li class="nav-item"><a routerLink=""><i class="fa fa-home"></i></a></li>
     <li class="nav-item"><a routerLink="search"><i class="fa fa-search">  </i></a></li>
     <li class="nav-item">
-      <span *ngIf="!containsUncheckedNotifications(); else elseBock"
-            matBadge="4"
+        <a (click)="showNotificationChildView = true" routerLink="notification">
+          <mat-icon
+            matBadge="{{homeService.totalNotifications}}"
             matBadgePosition="above after"
             matBadgeColor="warn"
-            matBadgeOverlap="false"
-            matBadgeSize="medium">
-        <a routerLink="notification">
-          <i class="fas fa-bell"></i>
+            matBadgeSize="medium"
+          >
+            <i [ngClass]="showNotificationChildView ? 'fas fa-bell' : 'far fa-bell' "></i>
+          </mat-icon>
         </a>
-      </span>
-      <ng-template #elseBock>
-        <span class="custom-badge-info"
-              matBadge="12"
-              matBadgePosition="above after"
-              matBadgeOverlap="false"
-              matBadgeSize="medium">
-          <a routerLink="notification">
-            <i class="far fa-bell"></i>
-          </a>
-        </span>
-      </ng-template>
     </li>
     <li class="nav-item"><a href=""  (click)="homeService.logout()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
   </ul>
 </nav>
 
-<router-outlet></router-outlet>
+<rahba-notification *ngIf="showNotificationChildView"
+                    (destroyEvent)="notificationChildViewDestroyed($event)">
+</rahba-notification>
+
+<rahba-book-chart *ngIf="!showNotificationChildView"></rahba-book-chart>
