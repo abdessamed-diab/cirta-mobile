@@ -10,6 +10,6 @@ export const backendServer = {
 };
 
 export const frontendServer = {
-  dns: 'https://rahba.net',
+  dns: 'https://mobile.cirta.app',
   home: '/home'
 };
