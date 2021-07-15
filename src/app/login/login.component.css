@@ -10,7 +10,8 @@
   color: dimgray;
   font-size: small;
   line-height: 32px;
-  margin-right: 16px;
+  margin-right: 8px;
+  color: black;
 }
 
 .container-fluid.header {
