@@ -10,7 +10,7 @@ export const backendServer = {
   dns: 'https://localhost/',
   signInUrl: 'signin/facebook',
   login: 'login',
-  favoritesBooks: 'book/favorites',
+  favorites: 'subject/favorites'
 };
 
 export const frontendServer = {

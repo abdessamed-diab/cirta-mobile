@@ -69,6 +69,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     );
   }
 
+  // TODO ad use proper end point.
   private loadFavoriteBook(): void {
     this.homeService.getFavoritesBookResponse().subscribe(
       (book: HttpResponse<Book[]>) => {this.books = book.body; this.homeService.favoriteBooks = book.body; },

@@ -6,7 +6,7 @@ export const backendServer = {
   dns: 'https://cirta.app/',
   signInUrl: 'signin/facebook',
   login: 'login',
-  favoritesBooks: 'book/favorites'
+  favorites: 'subject/favorites'
 };
 
 export const frontendServer = {

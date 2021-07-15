@@ -23,7 +23,7 @@ export class HomeService{
   getFavoritesBookResponse(): Observable<HttpEvent<Book[]>> {
     const jwt = localStorage.getItem('jwt');
     return this.httpClient.get<Book[]>(
-      backendServer.dns + backendServer.favoritesBooks + '/1',
+      backendServer.dns + backendServer.favorites + '/1',
       {
         headers: {
           Authorization: `Bearer ${jwt}`,
@@ -46,7 +46,7 @@ export class HomeService{
 
   private streamBookByBookId(bookId: number): Observable<HttpEvent<ArrayBuffer>> {
     return this.httpClient.get(
-      backendServer.dns + 'book/stream/' + bookId,
+      backendServer.dns + `subject/book/${bookId}/stream`,
       {
         headers: {
           Authorization: `Bearer ${this.getJwt()}`,
@@ -61,7 +61,7 @@ export class HomeService{
 
   streamPagesOfBook(bookId: number, sourceUrl: string, startPage: number): Observable<ArrayBuffer> {
     return this.httpClient.get(
-      backendServer.dns + `book/stream/${bookId}/${startPage}`,
+      backendServer.dns + `subject/book/${bookId}/stream/${startPage}`,
       {
         headers: {
           Authorization: `Bearer ${this.getJwt()}`,
@@ -78,7 +78,7 @@ export class HomeService{
 
   loadBookBookmarks(bookId: number, sourceUrl: string): Observable<HttpResponse<BookChartModalData>> {
     return this.httpClient.get<BookChartModalData>(
-      backendServer.dns + `book/bookmark/${bookId}`,
+      backendServer.dns + `subject/book/${bookId}/bookmark`,
       {
         headers: {
           Authorization: `Bearer ${this.getJwt()}`,
@@ -133,7 +133,7 @@ export class HomeService{
 
   postComment(bookId: number, body: Comment): Observable<HttpResponse<Comment>> {
     return this.httpClient.post<Comment>(
-      backendServer.dns + `book/${bookId}/comment`,
+      backendServer.dns + `subject/book/${bookId}/comment`,
       body,
       {
         headers: {
@@ -150,7 +150,7 @@ export class HomeService{
 
   fetchComments(bookId: number, pageNumber: number): Observable<HttpResponse<Comment[]>> {
     return this.httpClient.get<Comment[]>(
-      backendServer.dns + `book/${bookId}/comments/${pageNumber}`,
+      backendServer.dns + `subject/book/${bookId}/comments/${pageNumber}`,
       {
         headers: {
           Authorization: `Bearer ${this.getJwt()}`,
@@ -166,7 +166,7 @@ export class HomeService{
 
   addCommentToParent(comment: Comment, parentId: number): Observable<HttpResponse<Comment[]>> {
     return this.httpClient.post<Comment[]>(
-      backendServer.dns + `book/comment/addTo/${parentId}`,
+      backendServer.dns + `subject/comment/addTo/${parentId}`,
       comment,
       {
         headers: {

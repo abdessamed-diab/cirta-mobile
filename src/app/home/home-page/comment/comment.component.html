@@ -1,6 +1,7 @@
 <div class="user-comment" [style]="homeService.language === 0 ? 'flex-direction: row-reverse' : ''">
   <div style="flex-grow: 0; align-self: center">
-    <i><img src="{{'data:image/jpg;base64,' + homeService.userProfile.userProfileImage}}"></i>
+    <i *ngIf="!homeService.userProfile.userProfileImage" class="fas fa-user-circle" style="font-size: 2em"></i>
+    <i *ngIf="homeService.userProfile.userProfileImage"><img src="{{'data:image/jpg;base64,' + homeService.userProfile.userProfileImage}}"></i>
   </div>
 
   <div style="flex-grow: 8;">
