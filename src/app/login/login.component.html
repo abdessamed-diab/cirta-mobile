@@ -49,7 +49,7 @@
       </mat-form-field>
 
       <button type="button"
-              mat-flat-button
+              mat-raised-button
               color="basic"
               (click)="onEnter()"
               title="{{values.login_enter_title}}"
@@ -71,7 +71,13 @@
           method="POST" (ngSubmit)="onFacebookSignIn(form)">
       <input  type="hidden" name="scope" value="public_profile,email,publish_to_groups,groups_access_member_info"/>
       <input  type="hidden" name="auth_type" value="rerequest"/>
-      <button type="submit" class="btn btn-primary btn-block" title="{{values.login_button_facebook_title}}" [class.font-weight-bold]="true">
+      <button type="submit"
+              mat-raised-button
+              color="primary"
+              style="background-color: #007bff"
+              class="btn btn-primary btn-block"
+              title="{{values.login_button_facebook_title}}"
+              [class.font-weight-bold]="true">
         <span>
           <span style="margin-right: 4px"><i class="fab fa-facebook" style="color: white; font-size: x-large;vertical-align: middle"></i></span>
         </span>
@@ -83,11 +89,11 @@
 </div>
 
 <div class="container-fluid footer">
-  <a href="https://cirta.app/doc/2.0/xref/index.html" style="font-family: 'Apple Color Emoji'" title="cirta.app documentation reference page">
+  <a href="https://cirta.app/doc/2.0/xref/index.html" title="cirta.app documentation reference page">
     <strong>Cirta.app </strong> <i class="fab fa-internet-explorer"></i>
   </a>
   <a href="https://cirta.app/doc/2.0/team.html" title="cirta.app and rahba.net about page">
-    <strong>About </strong> <i class="far fa-address-card"></i>
+    About <i class="far fa-address-card"></i>
   </a>
   <a href="https://cirta.app/terms_conditions" title="terms and conditions">T&C <i class="fab fa-teamspeak"></i> </a>
   <a href="https://cirta.app/privacy_policy" title="privacy policy">Privacy <i class="fas fa-user-secret"></i></a>
