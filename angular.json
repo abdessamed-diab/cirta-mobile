@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "rahba-books": {
+    "cirta-mobile": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/rahba-books",
+            "outputPath": "dist/cirta-mobile",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,21 +70,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "rahba-books:build"
+            "browserTarget": "cirta-mobile:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "rahba-books:build:production"
+              "browserTarget": "cirta-mobile:build:production"
             },
             "staging": {
-              "browserTarget": "rahba-books:build:staging"
+              "browserTarget": "cirta-mobile:build:staging"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "rahba-books:build"
+            "browserTarget": "cirta-mobile:build"
           }
         },
         "test": {
@@ -121,18 +121,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "rahba-books:serve"
+            "devServerTarget": "cirta-mobile:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "rahba-books:serve:production"
+              "devServerTarget": "cirta-mobile:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "rahba-books",
+  "defaultProject": "cirta-mobile",
   "cli": {
     "analytics": false
   }

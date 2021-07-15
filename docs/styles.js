@@ -439,7 +439,7 @@ module.exports = content.locals || {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\abdes\Desktop\devops\workspace\front\rahba-books\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! C:\Users\abdes\Desktop\devops\workspace\front\cirta-mobile\src\styles.css */"./src/styles.css");
 
 
 /***/ })
