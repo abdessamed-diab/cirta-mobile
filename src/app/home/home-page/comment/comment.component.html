@@ -116,7 +116,10 @@
         <strong style="font-size: 1.05em; letter-spacing: 0.1em; word-spacing: 0.2em">{{reply.userProfile.username}}</strong>
           {{reply.content}}
       </span>
-
+    </div>
+    <div class="fid-interaction"
+         [style]="homeService.language === 0 ? 'direction: rtl; text-align: right' : ''">
+      <span style="width: 50%; margin-left: 32px">{{reply.publishedAt}}</span>
     </div>
   </div>
 

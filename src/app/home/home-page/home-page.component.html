@@ -8,8 +8,9 @@
           <mat-icon
             matBadge="{{homeService.totalNotifications}}"
             matBadgePosition="above after"
-            matBadgeColor="warn"
-            matBadgeSize="medium"
+            [matBadgeColor]="homeService.totalNotifications > 0 ? 'warn' : 'primary'"
+            matBadgeSize="small"
+            matBadgeOverlap="true"
           >
             <i [ngClass]="showNotificationChildView ? 'fas fa-bell' : 'far fa-bell' "></i>
           </mat-icon>
